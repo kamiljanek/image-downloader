@@ -14,8 +14,8 @@ namespace WeatherArchives
             
             const string localArchivePath = "C:\\Users\\JoHaNek\\Desktop\\archiwum\\";
             string linkSecondPart = string.Empty;
-     
-            
+
+            ChooseDayMenu();
 
             Title();
             MainMenu();
@@ -128,21 +128,36 @@ namespace WeatherArchives
         }
         static void ChooseDayMenu()
         {
-            Console.WriteLine("\tType day are you intrested in?");
-            var chooseDayList = new List<ChoosingProperties>() {
-                new ChoosingProperties(1,"cr/","Today"),
-                new ChoosingProperties(2,"crdl/","Tomorrow"),
-                new ChoosingProperties(3,"crdl1/","Day After Tomorrow")
-            };
+            //Console.WriteLine("\tType day are you intrested in?");
+            //var chooseDayList = new List<ChoosingProperties>() {
+            //    new ChoosingProperties(1,"cr/","Today"),
+            //    new ChoosingProperties(2,"crdl/","Tomorrow"),
+            //    new ChoosingProperties(3,"crdl1/","Day After Tomorrow")
+            //};
+
+            List<ChoosingProperties> chooseDayList = new List<ChoosingProperties>();
+            chooseDayList.Add(new ChoosingProperties() { Id = 1, Code = "cr/", Name = "Today" });
+            chooseDayList.Add(new ChoosingProperties() { Id = 2, Code = "crdl/", Name = "Tomorrow" });
+            chooseDayList.Add(new ChoosingProperties() { Id = 3, Code = "crdl1/", Name = "Day After Tomorrow" });
+
             foreach (ChoosingProperties val in chooseDayList)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
             }
-            Console.WriteLine("e.g. 1,2");
-
             string numbersDayInput = Console.ReadLine();
             string[] numberDayInputs = numbersDayInput.Split(',');
 
+            //Console.WriteLine(chooseDayList.Find(x => x.Id.Contains($"{numberDayInputs}")));
+            //foreach (ChoosingProperties val in chooseDayList)
+            //{
+            //    Console.WriteLine($"{val.Id} - {val.Name}");
+            //}
+            //Console.WriteLine("e.g. 1,2");
+
+            //string numbersDayInput = Console.ReadLine();
+            //string[] numberDayInputs = numbersDayInput.Split(',');
+
+            //Console.WriteLine();
             // chooseDayList.Find(chooseDayList => chooseDayList.Id == numberDayInput).Code;
             //string[] numberElementInputReplace = { numberElementInput,  };
            
@@ -151,23 +166,23 @@ namespace WeatherArchives
         static void ChooseWeatherProperties()
         {
             Console.WriteLine("\tWrite numbers which elements are you looking for");
-            var weatherPropertiesList = new List<ChoosingProperties>() {
-                new ChoosingProperties(1,"oblcX","All Clouds"),
-                new ChoosingProperties(2,"srzk","Precipitation"),
-                new ChoosingProperties(3,"t2m","Temperature"),
-                new ChoosingProperties(4,"vitrx","Wind 10m"),
-                new ChoosingProperties(5,"vitry","Gust"),
-                new ChoosingProperties(6,"vitra","Wind 850 hPa"),
-                new ChoosingProperties(7,"vitrb","Wind 800 hPa"),
-                new ChoosingProperties(8,"drtr","Kind of Thermals"),
-                new ChoosingProperties(9,"cudf","Convective Temperature Deficit"),
-                new ChoosingProperties(10,"cukh","Cumulus Clouds"),
-                new ChoosingProperties(11,"cuvr","Climb Speed")
-            };
-            foreach (ChoosingProperties val in weatherPropertiesList)
-            {
-                Console.WriteLine($"{val.Id} - {val.Name}");
-            }
+            //var weatherPropertiesList = new List<ChoosingProperties>() {
+            //    new ChoosingProperties(1,"oblcX","All Clouds"),
+            //    new ChoosingProperties(2,"srzk","Precipitation"),
+            //    new ChoosingProperties(3,"t2m","Temperature"),
+            //    new ChoosingProperties(4,"vitrx","Wind 10m"),
+            //    new ChoosingProperties(5,"vitry","Gust"),
+            //    new ChoosingProperties(6,"vitra","Wind 850 hPa"),
+            //    new ChoosingProperties(7,"vitrb","Wind 800 hPa"),
+            //    new ChoosingProperties(8,"drtr","Kind of Thermals"),
+            //    new ChoosingProperties(9,"cudf","Convective Temperature Deficit"),
+            //    new ChoosingProperties(10,"cukh","Cumulus Clouds"),
+            //    new ChoosingProperties(11,"cuvr","Climb Speed")
+            //};
+            //foreach (ChoosingProperties val in weatherPropertiesList)
+            //{
+            //    Console.WriteLine($"{val.Id} - {val.Name}");
+            //}
             Console.WriteLine("e.g. 1,2,5,8");
 
             string numbersWeatherPropertiesInput = Console.ReadLine();
