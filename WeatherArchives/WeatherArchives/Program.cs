@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Grpc.Core;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -11,17 +13,16 @@ namespace WeatherArchives
         static void Main(string[] args)
         {
 
-            // const string localArchivePath = "C:\\Users\\JoHaNek\\Desktop\\archiwum\\";
-
             Title();
             MainMenu();
 
         }
 
-
         static List<string> firstPartLinks = new List<string>();
         static List<string> secondPartLinks = new List<string>();
         static List<string> thirdPartLinks = new List<string>();
+        static List<string> completeLinksList = new List<string>();
+        static string completePath;
 
         static void Title()
         {
@@ -47,7 +48,8 @@ namespace WeatherArchives
             Console.WriteLine("1. Day?");
             Console.WriteLine("2. Type of Data?");
             Console.WriteLine("3. Time?");
-            Console.WriteLine("4. Start Download");
+            Console.WriteLine("4. Choose path");
+            Console.WriteLine("5. Start Download");
 
             string opcionInput = Console.ReadLine();
             if (opcionInput == "1")
@@ -71,12 +73,20 @@ namespace WeatherArchives
             else if (opcionInput == "4")
             {
                 ClearWindow();
+                completePath = GeneratorFolderPath();
+                CreateFolder(completePath);
+                MainMenu();
+
+            }
+            else if (opcionInput == "5")
+            {
+                ClearWindow();
                 GenerateAllProperties();
                 Confirmation();
-                GenerateCompleteLinks();
+                //completeLinksList = GenerateCompleteLinks();
+                CreateEachDayFolder(completePath);
                 StartDownload();
             }
-
             else
             {
                 ClearWindow();
@@ -149,7 +159,7 @@ namespace WeatherArchives
 
 
 
-        static List<string> GenerateSecondPartLink()
+        public static List<string> GenerateSecondPartLink()
         {
             Console.WriteLine("\tWrite numbers which elements are you looking for");
             var weatherPropertiesList = new List<ChoosingProperties> {
@@ -205,19 +215,22 @@ namespace WeatherArchives
         }
         static void StartDownload()
         {
-            //foreach (string val in numberWeatherPropetiesInputs)                                     
-            //{
-            //    var linkSecondPart = weatherPropertiesList.Find(x => x.Id == val);
-            //    Console.WriteLine(linkSecondPart.Code);
-            //}
-            //WebClient webClient = new WebClient();
-            //webClient.DownloadFile(completeLink, fileName);
+            foreach (string val in completeLinksList)
+            {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile(val, completePath + "\\" );
+            }
 
         }
+        static void GeneratorFileName()
+        {
+            Console.WriteLine("not working yet");
+        }
 
-        static void GenerateCompleteLinks()
+            static List<string> GenerateCompleteLinks()
         {
             string mainLink = "http://flymet.meteopress.cz/";
+            var selectedCompleateLinksList = new List<string>();
 
             foreach (string firstPartLink in firstPartLinks)
             {
@@ -227,20 +240,50 @@ namespace WeatherArchives
                     {
                         string completeLink = $"{mainLink}{firstPartLink}{secondPartLink}{thirdPartLink}.png";
                         Console.WriteLine(completeLink);
+                        selectedCompleateLinksList.Add(completeLink);
                     }
                 }
                     
             }
+            return selectedCompleateLinksList;
 
         }
-        static bool Confirmation()
+        static void Confirmation()
         {
-            Console.WriteLine("If you are sure click \"ENTER\"");
+            Console.WriteLine("If you are sure press \"ENTER\"");
 
-            if (Console.ReadKey().Key == ConsoleKey.Enter)
-                return true;
+            if (Console.ReadKey().Key == ConsoleKey.Enter)             //o co tu chodzi?
+            {
+                GenerateCompleteLinks();
+            }
             else
-                return false;
+            {
+                MainMenu();
+            }
+                
+        }
+        static string GeneratorFolderPath()
+        {
+            Console.WriteLine("Name your new folder");
+            NameFolder nameFolder = new NameFolder();
+            nameFolder.Name = Console.ReadLine();
+            Console.WriteLine("Paste localization");
+            string localization = Console.ReadLine();
+
+            string completePath = $"{localization}\\{nameFolder.Name}";
+
+            Console.WriteLine(completePath);
+            return completePath;
+        }
+
+        static void CreateFolder(string path)
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        static void CreateEachDayFolder(string eachDayFolder)
+        {
+            Directory.CreateDirectory($"{eachDayFolder}\\{DateTime.Now.ToString("dd.MM.yyyy")}");
         }
         static void GenerateAllProperties()
         {
