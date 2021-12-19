@@ -11,10 +11,9 @@ namespace WeatherArchives
 {
     class Program
     {
-        
+
         static void Main(string[] args)
         {
-
             Title();
             MainMenu();
         }
@@ -25,8 +24,9 @@ namespace WeatherArchives
         static List<string> completeLinksList = new List<string>();
         static string completePath;
         static List<ChoosingProperties> weatherPropertiesList = new List<ChoosingProperties>();
-        
-        
+        static List<ChoosingProperties> chooseDayList = new List<ChoosingProperties>();
+
+
         static void Title()
         {
             string enter = "";
@@ -84,10 +84,10 @@ namespace WeatherArchives
             else if (opcionInput == "5")
             {
                 ClearWindow();
-                //GenerateAllProperties();
+                GenerateAllChoosenProperties();
                 Confirmation();
                 completeLinksList = GenerateCompleteLinks();
-                //CreateEachDayFolder(completePath);
+                CreateEachDayFolder(completePath);
                 StartDownload();
             }
             else
@@ -100,7 +100,7 @@ namespace WeatherArchives
         static List<string> GenerateFirstPartLink()
         {
             Console.WriteLine("\tWrite numbers which days do you want to download:");
-            var chooseDayList = new List<ChoosingProperties>
+            chooseDayList = new List<ChoosingProperties>
             {
                  new ChoosingProperties("1", "cr/", "Today"),
                  new ChoosingProperties("2","crdl/","Tomorrow"),
@@ -116,7 +116,7 @@ namespace WeatherArchives
             string[] numberDayInputs = numbersDayInput.Split(',');
 
             var selectedFirstPartCodesList = new List<string>();
-           
+
             foreach (string val in numberDayInputs)
             {
                 var linkFirstPart = chooseDayList.Find(x => x.Id == val);
@@ -178,8 +178,8 @@ namespace WeatherArchives
                 new ChoosingProperties("10","cukh","Cumulus Clouds"),
                 new ChoosingProperties("11","cuvr","Climb Speed")
             };
-            
-            
+
+
             foreach (ChoosingProperties val in weatherPropertiesList)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
@@ -223,29 +223,23 @@ namespace WeatherArchives
             string fileNameWeatherProperties, fileNameTime;
             foreach (string val in completeLinksList)
             {
-                        fileNameTime = string.Concat(val.ToArray().Reverse().TakeWhile(char.IsNumber).Reverse());
-
                 foreach (ChoosingProperties y in weatherPropertiesList)
                 {
                     if (val.Contains(y.Code))
                     {
+                        string valCut = val.Substring(0, val.Length - 4);                   //sprawdzic co znaczy metoda Substring
+                        fileNameTime = string.Concat(valCut.ToArray().Reverse().TakeWhile(char.IsNumber).Reverse());            //sprawdzić co znaczy to całe wyrazenie
                         fileNameWeatherProperties = y.Name;
-                        Console.WriteLine(fileNameWeatherProperties+fileNameTime);
+
+                        //WebClient webClient = new WebClient();
+                        //webClient.DownloadFile(val, $"{completePath}\\{fileNameWeatherProperties} - {fileNameTime}h UTC");
                     }
-                    
+
                 }
-                //Console.WriteLine($"{fileName}");
-                //WebClient webClient = new WebClient();
-                //webClient.DownloadFile(val, completePath + "\\" );          //nie dokończone
             }
 
         }
-        static void GeneratorFileName()
-        {
-            Console.WriteLine("not working yet");
-        }
-
-            static List<string> GenerateCompleteLinks()
+        static List<string> GenerateCompleteLinks()
         {
             string mainLink = "http://flymet.meteopress.cz/";
             var selectedCompleateLinksList = new List<string>();
@@ -261,24 +255,24 @@ namespace WeatherArchives
                         selectedCompleateLinksList.Add(completeLink);
                     }
                 }
-                    
+
             }
             return selectedCompleateLinksList;
 
         }
         static void Confirmation()
         {
-            Console.WriteLine("If you are sure press \"ENTER\"");
+            Console.WriteLine("If you are sure press \"ENTER\", if not press any other key...");
 
             if (Console.ReadKey().Key == ConsoleKey.Enter)             //o co tu chodzi?
             {
-                GenerateCompleteLinks();
+                //GenerateCompleteLinks();
             }
             else
             {
                 MainMenu();
             }
-                
+
         }
         static string GeneratorFolderPath()
         {
@@ -303,13 +297,41 @@ namespace WeatherArchives
         {
             Directory.CreateDirectory($"{eachDayFolder}\\{DateTime.Now.ToString("dd.MM.yyyy")}");
         }
-        static void GenerateAllProperties()
+        static void GenerateAllChoosenProperties()
         {
+            foreach (string val in firstPartLinks)
+            {
+                foreach (ChoosingProperties y in chooseDayList)
+                {
+                    if (val == y.Code)
+                    {
+                        Console.Write($"{y.Name}, ");
+                    }
+                }
+            }
             Console.WriteLine();
-        }
-        static void FileName()
-        {
-
+            Console.WriteLine();
+            foreach (string val in secondPartLinks)
+            {
+                foreach (ChoosingProperties y in weatherPropertiesList)
+                {
+                    if (val == y.Code)
+                    {
+                        Console.Write($"{y.Name}, ");
+                    }
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+            foreach (string val in thirdPartLinks)
+            {
+                Console.Write($"{val}:00, ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine($"Path: {completePath}");
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }
