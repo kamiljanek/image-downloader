@@ -11,11 +11,13 @@ namespace WeatherArchives
             Id = id;
             Code = code;
             Name = name;
+            //weatherPropertiesListsss = new List<ChoosingProperties>();
         }
-
+        //public List<ChoosingProperties> weatherPropertiesListsss { get; set; }
         public string Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-
+    
+        
     }
 }
