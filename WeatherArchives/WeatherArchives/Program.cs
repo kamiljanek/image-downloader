@@ -1,7 +1,9 @@
 ﻿using Grpc.Core;
+using Slack.Webhooks.Blocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -15,7 +17,6 @@ namespace WeatherArchives
 
             Title();
             MainMenu();
-
         }
 
         static List<string> firstPartLinks = new List<string>();
@@ -23,7 +24,9 @@ namespace WeatherArchives
         static List<string> thirdPartLinks = new List<string>();
         static List<string> completeLinksList = new List<string>();
         static string completePath;
-
+        static List<ChoosingProperties> weatherPropertiesList = new List<ChoosingProperties>();
+        
+        
         static void Title()
         {
             string enter = "";
@@ -81,10 +84,10 @@ namespace WeatherArchives
             else if (opcionInput == "5")
             {
                 ClearWindow();
-                GenerateAllProperties();
+                //GenerateAllProperties();
                 Confirmation();
-                //completeLinksList = GenerateCompleteLinks();
-                CreateEachDayFolder(completePath);
+                completeLinksList = GenerateCompleteLinks();
+                //CreateEachDayFolder(completePath);
                 StartDownload();
             }
             else
@@ -162,7 +165,7 @@ namespace WeatherArchives
         public static List<string> GenerateSecondPartLink()
         {
             Console.WriteLine("\tWrite numbers which elements are you looking for");
-            var weatherPropertiesList = new List<ChoosingProperties> {
+            weatherPropertiesList = new List<ChoosingProperties> {
                 new ChoosingProperties("1","oblcX","All Clouds"),
                 new ChoosingProperties("2","srzk","Precipitation"),
                 new ChoosingProperties("3","t2m","Temperature"),
@@ -175,6 +178,8 @@ namespace WeatherArchives
                 new ChoosingProperties("10","cukh","Cumulus Clouds"),
                 new ChoosingProperties("11","cuvr","Climb Speed")
             };
+            
+            
             foreach (ChoosingProperties val in weatherPropertiesList)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
@@ -215,10 +220,23 @@ namespace WeatherArchives
         }
         static void StartDownload()
         {
+            string fileNameWeatherProperties, fileNameTime;
             foreach (string val in completeLinksList)
             {
-                WebClient webClient = new WebClient();
-                webClient.DownloadFile(val, completePath + "\\" );
+                        fileNameTime = string.Concat(val.ToArray().Reverse().TakeWhile(char.IsNumber).Reverse());
+
+                foreach (ChoosingProperties y in weatherPropertiesList)
+                {
+                    if (val.Contains(y.Code))
+                    {
+                        fileNameWeatherProperties = y.Name;
+                        Console.WriteLine(fileNameWeatherProperties+fileNameTime);
+                    }
+                    
+                }
+                //Console.WriteLine($"{fileName}");
+                //WebClient webClient = new WebClient();
+                //webClient.DownloadFile(val, completePath + "\\" );          //nie dokończone
             }
 
         }
