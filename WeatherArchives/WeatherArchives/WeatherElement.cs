@@ -5,26 +5,44 @@ using System.Text;
 
 namespace WeatherArchives
 {
-    public class ChoosingEntity
+    public class WeatherElement
     {
-        public ChoosingEntity(string id, string code, string name)
+        public WeatherElement(string id, string code, string name)
         {
             Id = id;
             Code = code;
             Name = name;
-            //weatherPropertiesListsss = new List<ChoosingProperties>();
         }
-        //public List<ChoosingProperties> weatherPropertiesListsss { get; set; }
         public string Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
     
         
     }
-    
-    public class WeatherForecastEntity
+    public class WeatherDay : WeatherElement
     {
-        public WeatherForecastEntity(ChoosingEntity weatherDay, ChoosingEntity weatherType, ChoosingEntity weatherHour)
+        public WeatherDay(string id, string code, string name) : base (id, code, name)
+        {
+
+        }
+    }
+    public class WeatherType : WeatherElement
+    {
+        public WeatherType(string id, string code, string name) : base(id, code, name)
+        {
+
+        }
+    }
+    public class WeatherHour : WeatherElement
+    {
+        public WeatherHour(string id, string code, string name) : base(id, code, name)
+        {
+
+        }
+    }
+    public class WeatherForecast
+    {
+        public WeatherForecast(WeatherDay weatherDay, WeatherType weatherType, WeatherHour weatherHour)
         {
             WeatherType = weatherType;
             WeatherDay = weatherDay;
@@ -37,7 +55,7 @@ namespace WeatherArchives
         }
         public string GenerateFilePath()
         {
-            return $"{localizationPath}\\{GenerateFileName()}"; //TODO need localization on Disc
+            return $"{localizationPath}\\{GenerateFileName()}";
         }
         public string GenerateFileName()
         {
@@ -45,9 +63,9 @@ namespace WeatherArchives
         }
         private const string BaseUrl = "https://flymet.meteopress.cz/";
         private const string UrlExtencion = ".png";
-        public ChoosingEntity WeatherType { get; set; }
-        public ChoosingEntity WeatherDay { get; set; }
-        public ChoosingEntity WeatherHour { get; set; }
+        public WeatherDay WeatherDay { get; set; }
+        public WeatherType WeatherType { get; set; }
+        public WeatherHour WeatherHour { get; set; }
 
         internal void DownloadFile()
         {

@@ -22,9 +22,9 @@ namespace WeatherArchives
         //static List<string> firstPartLinks = new List<string>();
         //static List<string> secondPartLinks = new List<string>();
         //static List<string> thirdPartLinks = new List<string>();
-        static List<ChoosingEntity> weatherDaysInput = new List<ChoosingEntity>();
-        static List<ChoosingEntity> weatherTypesInput = new List<ChoosingEntity>();
-        static List<ChoosingEntity> weatherHoursInput = new List<ChoosingEntity>();
+        static List<WeatherDay> weatherDaysInput = new List<WeatherDay>();
+        static List<WeatherType> weatherTypesInput = new List<WeatherType>();
+        static List<WeatherHour> weatherHoursInput = new List<WeatherHour>();
         static string completePath;
         //static List<ChoosingEntity> chooseDayList = new List<ChoosingEntity>();
         #endregion
@@ -61,7 +61,6 @@ namespace WeatherArchives
             {
                 case "1":
                     ClearWindow();
-                    //firstPartLinks = GenerateFirstPartLink();
                     weatherDaysInput = ColectWeatherDaysInput();
                     MainMenu();
                     break;
@@ -115,138 +114,109 @@ namespace WeatherArchives
                     break;
 
             }
-            //static List<string> GenerateFirstPartLink()
-            //{
-            //    Console.WriteLine("\tWrite numbers which days do you want to download:");
-            //    chooseDayList = new List<ChoosingEntity>
-            //{
-            //     new ChoosingEntity("1", "cr/", "Today"),
-            //     new ChoosingEntity("2","crdl/","Tomorrow"),
-            //     new ChoosingEntity("3","crdl1/","Day After Tomorrow")
-            //};
 
-            //    foreach (ChoosingEntity val in chooseDayList)
-            //    {
-            //        Console.WriteLine($"{val.Id} - {val.Name}");
-            //    }
-            //    Console.WriteLine("\te.g. 1,3");
-            //    string numbersDayInput = Console.ReadLine();
-            //    string[] numberDayInputs = numbersDayInput.Split(',');
-
-            //    var selectedFirstPartCodesList = new List<string>();
-
-            //    foreach (string val in numberDayInputs)
-            //    {
-            //        var linkFirstPart = chooseDayList.Find(x => x.Id == val);
-            //        selectedFirstPartCodesList.Add(linkFirstPart.Code);
-            //    }
-            //    return selectedFirstPartCodesList;
-
-            //}
-
-            static List<ChoosingEntity> ColectWeatherDaysInput()
+            static List<WeatherDay> ColectWeatherDaysInput()
             {
                 Console.WriteLine("\tWrite numbers which days do you want to download:");
-                var chooseDayList = new List<ChoosingEntity>
+                var weatherDayList = new List<WeatherDay>
             {
-                 new ChoosingEntity("1", "cr/", "Today"),
-                 new ChoosingEntity("2","crdl/","Tomorrow"),
-                 new ChoosingEntity("3","crdl1/","Day After Tomorrow")
+                 new WeatherDay("1", "cr/", "Today"),
+                 new WeatherDay("2","crdl/","Tomorrow"),
+                 new WeatherDay("3","crdl1/","Day After Tomorrow")
             };
 
-                foreach (ChoosingEntity val in chooseDayList)
+                foreach (WeatherDay val in weatherDayList)
                 {
                     Console.WriteLine($"{val.Id} - {val.Name}");
                 }
                 Console.WriteLine("\te.g. 1,3");
-                string numbersDayInput = Console.ReadLine();
-                string[] numberDayInputs = numbersDayInput.Split(',');
+                string weatherDaysInput = Console.ReadLine();
+                string[] weatherDayInputs = weatherDaysInput.Split(',');
 
-                var selectedFirstPartCodesList = new List<ChoosingEntity>();
+                var selectedWeatherDayList = new List<WeatherDay>();
 
-                foreach (string val in numberDayInputs)
+                foreach (string val in weatherDayInputs)
                 {
-                    var linkFirstPart = chooseDayList.Find(x => x.Id == val);
-                    selectedFirstPartCodesList.Add(linkFirstPart);
+                    var selectedWeatherDay = weatherDayList.Find(x => x.Id == val);
+                    selectedWeatherDayList.Add(selectedWeatherDay);
                 }
-                return selectedFirstPartCodesList;
+                return selectedWeatherDayList;
 
             }
-            static List<ChoosingEntity> ColectWeatherTypesInput()
+            static List<WeatherType> ColectWeatherTypesInput()
             {
                 Console.WriteLine("\tWrite numbers which elements are you looking for");
-                var weatherPropertiesList = new List<ChoosingEntity> {
-                new ChoosingEntity("1","oblcX","All Clouds"),
-                new ChoosingEntity("2","srzk","Precipitation"),
-                new ChoosingEntity("3","t2m","Temperature"),
-                new ChoosingEntity("4","vitrx","Wind 10m"),
-                new ChoosingEntity("5","vitry","Gust"),
-                new ChoosingEntity("6","vitra","Wind 850 hPa"),
-                new ChoosingEntity("7","vitrb","Wind 800 hPa"),
-                new ChoosingEntity("8","drtr","Kind of Thermals"),
-                new ChoosingEntity("9","cudf","Convective Temperature Deficit"),
-                new ChoosingEntity("10","cukh","Cumulus Clouds"),
-                new ChoosingEntity("11","cuvr","Climb Speed")
+                var weatherTypeList = new List<WeatherType> {
+                new WeatherType("1","oblcX","All Clouds"),
+                new WeatherType("2","srzk","Precipitation"),
+                new WeatherType("3","t2m","Temperature"),
+                new WeatherType("4","vitrx","Wind 10m"),
+                new WeatherType("5","vitry","Gust"),
+                new WeatherType("6","vitra","Wind 850 hPa"),
+                new WeatherType("7","vitrb","Wind 800 hPa"),
+                new WeatherType("8","drtr","Kind of Thermals"),
+                new WeatherType("9","cudf","Convective Temperature Deficit"),
+                new WeatherType("10","cukh","Cumulus Clouds"),
+                new WeatherType("11","cuvr","Climb Speed")
                 };
 
-                foreach (ChoosingEntity val in weatherPropertiesList)
+                foreach (WeatherType val in weatherTypeList)
                 {
                     Console.WriteLine($"{val.Id} - {val.Name}");
                 }
                 Console.WriteLine("\te.g. 1,2,5,8");
 
-                string numbersWeatherPropertiesInput = Console.ReadLine();
-                string[] numberWeatherPropetiesInputs = numbersWeatherPropertiesInput.Split(',');
+                string WeatherTypesInput = Console.ReadLine();
+                string[] WeatherTypeInputs = WeatherTypesInput.Split(',');
 
-                var selectedSecondPartCodesList = new List<ChoosingEntity>();
+                var selectedWeatherTypeList = new List<WeatherType>();
 
-                foreach (string val in numberWeatherPropetiesInputs)
+                foreach (string val in WeatherTypeInputs)
                 {
-                    var linkSecondPart = weatherPropertiesList.Find(x => x.Id == val);
-                    selectedSecondPartCodesList.Add(linkSecondPart);
+                    var selectedWeatherType = weatherTypeList.Find(x => x.Id == val);
+                    selectedWeatherTypeList.Add(selectedWeatherType);
 
                 }
-                return selectedSecondPartCodesList;
+                return selectedWeatherTypeList;
             }
 
-            static List<ChoosingEntity> ColectWeatherHoursInput()
+            static List<WeatherHour> ColectWeatherHoursInput()
             {
-                var weatherHoursList = new List<ChoosingEntity>(); 
+                var weatherHourList = new List<WeatherHour>(); 
                
                 for (int hour = 1; hour < 25; hour++)
                 {
                     var stringifiedHour = hour.ToString();
-                    weatherHoursList.Add(new ChoosingEntity(stringifiedHour,stringifiedHour,stringifiedHour));
+                    weatherHourList.Add(new WeatherHour(stringifiedHour,stringifiedHour,stringifiedHour));
                 }
 
                 Console.WriteLine("\tWhat time are you looking for?");
                 Console.WriteLine("\te.g.   9,12,15,17");
 
-                string numbersTimeInput = Console.ReadLine();
-                string[] numberTimeInputs = numbersTimeInput.Split(",");
+                string weatherHoursInput = Console.ReadLine();
+                string[] weatherHourInputs = weatherHoursInput.Split(",");
 
-                var selectedThirdPartCodesList = new List<ChoosingEntity>();
+                var selectedWeatherHourList = new List<WeatherHour>();
 
-                foreach (string val in numberTimeInputs)
+                foreach (string val in weatherHourInputs)
                 {
-                    var linkTrirdPart = weatherHoursList.Find(x => x.Id == val);
-                    selectedThirdPartCodesList.Add(linkTrirdPart);
+                    var selectedWeatherHour = weatherHourList.Find(x => x.Id == val);
+                    selectedWeatherHourList.Add(selectedWeatherHour);
                 }
-                return selectedThirdPartCodesList;
+                return selectedWeatherHourList;
 
             }
-            static void StartDownload(List<WeatherForecastEntity> weatherForcastEntityList)
+            static void StartDownload(List<WeatherForecast> selectedWeatherForcastList)
             {
-                foreach (var weatherForecastEntity in weatherForcastEntityList)
+                foreach (var val in selectedWeatherForcastList)
                 {
-                    weatherForecastEntity.DownloadFile();
+                    val.DownloadFile();
                 }
 
             }
-            static List<WeatherForecastEntity> GenerateDownloadItems()
+            static List<WeatherForecast> GenerateDownloadItems()
             {
-                //string mainLink = "http://flymet.meteopress.cz/";
-                var selectedCompleateLinksList = new List<WeatherForecastEntity>();
+                var selectedCompleateLinkList = new List<WeatherForecast>();
 
                 foreach (var weatherDayInput in weatherDaysInput)
                 {
@@ -254,15 +224,13 @@ namespace WeatherArchives
                     {
                         foreach (var weatherHourInput in weatherHoursInput)
                         {
-                            var weatherForecastEntity = new WeatherForecastEntity(weatherDayInput, weatherTypeInput, weatherHourInput);
-                            //string completeLink = $"{mainLink}{weatherDayInput}{secondPartLink}{thirdPartLink}.png";
-                            //Console.WriteLine(completeLink);
-                            selectedCompleateLinksList.Add(weatherForecastEntity);
+                            var weatherForecastEntity = new WeatherForecast(weatherDayInput, weatherTypeInput, weatherHourInput);
+                            selectedCompleateLinkList.Add(weatherForecastEntity);
                         }
                     }
 
                 }
-                return selectedCompleateLinksList;
+                return selectedCompleateLinkList;
 
             }
             static bool Confirmation()
@@ -275,20 +243,18 @@ namespace WeatherArchives
             static string GeneratorFolderPath()
             {
                 Console.WriteLine("Name your new folder");
-                NameFolder nameFolder = new NameFolder();
-                nameFolder.Name = Console.ReadLine();
+                var folderName = Console.ReadLine();
                 Console.WriteLine("Paste localization");
-                string localization = Console.ReadLine();
+                var localizationOnComputer = Console.ReadLine();
 
-                string completePath = $"{localization}\\{nameFolder.Name}";
+                var folderPath = $"{localizationOnComputer}\\{folderName}";
 
-                Console.WriteLine(completePath);
-                return completePath;
+                return folderPath;
             }
 
-            static void CreateFolder(string path)
+            static void CreateFolder(string folderPath)
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(folderPath);
             }
 
             static void CreateEachDayFolder(string eachDayFolder)
