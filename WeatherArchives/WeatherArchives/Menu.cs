@@ -74,7 +74,8 @@ namespace WeatherArchives
 
         private static void SaveSettings()
         {
-            throw new NotImplementedException();
+            DataBase dataBase = new DataBase();
+            dataBase.Save();
         }
 
         private static void CheckSettings()
