@@ -7,16 +7,16 @@ namespace WeatherArchives
 {
     public class WeatherForecast
     {
-        public WeatherForecast(ForecastDay weatherDay, ForecastType weatherType, ForecastTime weatherHour)
+        public WeatherForecast(ForecastElement forecastDay, ForecastElement forecastType, ForecastElement forecastHour)
         {
-            WeatherType = weatherType;
-            WeatherDay = weatherDay;
-            WeatherHour = weatherHour;
+            ForecastDay = forecastDay;
+            ForecastType = forecastType;
+            ForecastHour = forecastHour;
         }
         private string localizationPath = @"C:\Users\JoHaNek\Desktop\archiwum"; //TODO move to configuration file
         public string GenerateUrl()
         {
-            return $"{BaseUrl}{WeatherType.Code}{WeatherDay.Code}{WeatherHour.Code}{UrlExtencion}";
+            return $"{BaseUrl}{ForecastType.Code}{ForecastDay.Code}{ForecastHour.Code}{UrlExtencion}";
         }
         public string GenerateFilePath()
         {
@@ -28,9 +28,9 @@ namespace WeatherArchives
         }
         private const string BaseUrl = "https://flymet.meteopress.cz/";
         private const string UrlExtencion = ".png";
-        public ForecastDay WeatherDay { get; set; }
-        public ForecastType WeatherType { get; set; }
-        public ForecastTime WeatherHour { get; set; }
+        public ForecastElement ForecastDay { get; set; }
+        public ForecastElement ForecastType { get; set; }
+        public ForecastElement ForecastHour { get; set; }
 
         internal void DownloadFile()
         {

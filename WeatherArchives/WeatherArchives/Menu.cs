@@ -47,8 +47,8 @@ namespace WeatherArchives
                 case "4":
 
                     Values.Title();
-                    Values.completePath = FolderPathGenerator();
-                    CreateFolder(Values.completePath);
+                    Values.completeFolderPath = FolderPathGenerator();
+                    CreateFolder(Values.completeFolderPath);
                     break;
 
                 case "5":
@@ -58,6 +58,8 @@ namespace WeatherArchives
                     break;
 
                 case "6":
+                    ForecastLists.selectedForecastElements = ForecastLists.GenerateDownloadItems();
+                    ForecastLists.completeURLList = ForecastLists.GeneratorURLs();
                     SaveSettings();
                     break;
 

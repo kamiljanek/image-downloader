@@ -9,7 +9,7 @@ namespace WeatherArchives
         internal const string MainMenuEnds = "to download...";
         internal const string appTitle = "WEATHER ARCHIVES";
         internal const string pageAdress = "http://flymet.meteopress.cz/";
-        internal static string completePath;
+        internal static string completeFolderPath;
         internal static void Title()
         {
             Console.Clear();

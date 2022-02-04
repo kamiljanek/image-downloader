@@ -10,6 +10,8 @@ namespace WeatherArchives
         internal static List<ForecastElement> forecastDaysInput = new List<ForecastElement>();
         internal static List<ForecastElement> forecastTypesInput = new List<ForecastElement>();
         internal static List<ForecastElement> forecastHoursInput = new List<ForecastElement>();
+        internal static List<WeatherForecast> selectedForecastElements = new List<WeatherForecast>();
+        internal static List<string> completeURLList = new List<string>();
 
 
         internal static List<ForecastElement> forecastDayList = new List<ForecastElement>
@@ -33,16 +35,44 @@ namespace WeatherArchives
                 new ForecastElement("10","cukh","Cumulus Clouds"),
                 new ForecastElement("11","cuvr","Climb Speed")
              };
-       internal static List<ForecastElement> HourList()
+        internal static List<ForecastElement> HourList()
         {
-         List<ForecastElement> forecastHourList = new List<ForecastElement>();
+            List<ForecastElement> forecastHourList = new List<ForecastElement>();
 
-                for (int hour = 1; hour< 25; hour++)
-                {
-                    var stringifiedHour = hour.ToString();
-        forecastHourList.Add(new ForecastElement(stringifiedHour, stringifiedHour, stringifiedHour));
-                }
-                return forecastHourList;
+            for (int hour = 1; hour < 25; hour++)
+            {
+                var stringifiedHour = hour.ToString();
+                forecastHourList.Add(new ForecastElement(stringifiedHour, stringifiedHour, stringifiedHour));
+            }
+            return forecastHourList;
         }
-}
+        internal static List<WeatherForecast> GenerateDownloadItems()
+        {
+            var selectedForecastElements = new List<WeatherForecast>();
+
+            foreach (var DayInput in forecastDaysInput)
+            {
+                foreach (var TypeInput in forecastTypesInput)
+                {
+                    foreach (var HourInput in forecastHoursInput)
+                    {
+                        var forecastEntity = new WeatherForecast(DayInput, TypeInput, HourInput);
+                        selectedForecastElements.Add(forecastEntity);
+                    }
+                }
+
+            }
+            return selectedForecastElements;
+
+        }
+        internal static List<string> GeneratorURLs()
+        {
+            var URLList = new List<string>();
+            foreach (var item in selectedForecastElements)
+            {
+                URLList.Add(item.GenerateUrl());
+            }
+            return URLList;
+        }
+    }
 }
