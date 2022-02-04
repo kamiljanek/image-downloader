@@ -4,8 +4,10 @@ using System.Text;
 
 namespace WeatherArchives
 {
-    internal static class Values
+    public static class Values
     {
+        public static string dbo_URLs = "URLs";
+        public static string dbo_OwnersData = "OwnersData";
         internal const string MainMenuEnds = "to download...";
         internal const string appTitle = "WEATHER ARCHIVES";
         internal const string pageAdress = "http://flymet.meteopress.cz/";
