@@ -36,7 +36,6 @@ namespace WeatherArchives
                     break;
 
                 case "3":
-
                     Values.Title();
                     ForecastLists.HourList();
                     Console.WriteLine("Choose hours...");
@@ -45,14 +44,12 @@ namespace WeatherArchives
                     break;
 
                 case "4":
-
                     Values.Title();
                     Values.completeFolderPath = FolderPathGenerator();
                     CreateFolder(Values.completeFolderPath);
                     break;
 
                 case "5":
-
                     Values.Title();
                     CheckSettings();
                     break;
@@ -64,7 +61,6 @@ namespace WeatherArchives
                     break;
 
                 default:
-
                     Values.Title();
                     Console.WriteLine("WRONG CHOOISE!!! TRY ONE MORE TIME");
                     break;
@@ -77,7 +73,7 @@ namespace WeatherArchives
         private static void SaveSettings()
         {
             DataBase dataBase = new DataBase();
-            dataBase.Save();
+            dataBase.ModifyTables();
         }
 
         private static void CheckSettings()

@@ -7,15 +7,22 @@ namespace WeatherArchives
 {
     internal class DataBase
     {
+        string dbo_URLs = "URLs";
+        string dbo_OwnersData = "OwnersData";
         string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WeatherArchivesDB;Integrated Security=True;";
-        public void Save()
+        string DBquery;
+
+        public void ModifyTables()
         {
-            string cleanDB = @"TRUNCATE TABLE URLs;";
-            DataModification(cleanDB);
+            CleanDB(dbo_URLs);
+            CleanDB(dbo_OwnersData);
+            DBquery = $"INSERT INTO {dbo_OwnersData}(FolderPath) VALUES ('{Values.completeFolderPath}')";
+            DataModification(DBquery);
+
 
             foreach (var item in ForecastLists.completeURLList)
             {
-                string DBquery = $"INSERT INTO URLs(URL) VALUES ('{item}')";
+                DBquery = $"INSERT INTO {dbo_URLs}(URL) VALUES ('{item}')";
                 DataModification(DBquery);
             }
         }
@@ -28,6 +35,11 @@ namespace WeatherArchives
                 cmd.ExecuteNonQuery();
                 sCon.Close();
             }
+        }
+        private void CleanDB(string TableName)
+        {
+            string cleanTable = $"TRUNCATE TABLE {TableName};";
+            DataModification(cleanTable);
         }
     }
 }
