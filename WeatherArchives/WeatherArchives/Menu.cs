@@ -20,33 +20,27 @@ namespace WeatherArchives
             Console.WriteLine("");
             Console.Write("Choose option: ");
 
+            Data data = new Data();
             string userInput = Console.ReadLine();
             switch (userInput)
             {
                 case "1":
-                    Values.Title();
-                    ChoosenMenuView(ForecastLists.forecastDayList);
-                    ForecastLists.forecastDaysInput = SelectedItemsList(ForecastLists.forecastDayList);
+                    CaseMenu(data, ForecastLists.forecastDayList, Values.dayInputsFile);
                     break;
 
                 case "2":
-                    Values.Title();
-                    ChoosenMenuView(ForecastLists.forecastTypeList);
-                    ForecastLists.forecastTypesInput = SelectedItemsList(ForecastLists.forecastTypeList);
+                    CaseMenu(data, ForecastLists.forecastTypeList, Values.typeInputsFile);
                     break;
 
                 case "3":
                     Values.Title();
-                    ForecastLists.HourList();
-                    Console.WriteLine("Choose hours...");
+                    Console.WriteLine("Choose hours between 1-24 ...");
                     Console.WriteLine("For example: 9,12,15,17");
-                    ForecastLists.forecastHoursInput = SelectedItemsList(ForecastLists.HourList());
+                    data.FileGenerator(Values.hourInputsFile, SelectedItemsList(ForecastLists.HourList()));
                     break;
 
                 case "4":
-                    Values.Title();
-                    Values.completeFolderPath = FolderPathGenerator();
-                    CreateEntity.CreateFolder(Values.completeFolderPath);
+                    CaseMenu(data, Values.archiveFile, FolderPathGenerator());
                     break;
 
                 case "5":
@@ -70,6 +64,17 @@ namespace WeatherArchives
 
         }
 
+        private static void CaseMenu(Data data, List<ForecastElement> forecastElements, string filePath)
+        {
+            Values.Title();
+            ChoosenMenuView(forecastElements);
+            data.FileGenerator(filePath, SelectedItemsList(forecastElements));
+        }
+        private static void CaseMenu(Data data, string filePath, string text)
+        {
+            Values.Title();
+            data.FileGenerator(filePath, text);
+        }
         private static void SaveSettings()
         {
             DataBase dataBase = new DataBase();
@@ -135,16 +140,14 @@ namespace WeatherArchives
         }
         static string FolderPathGenerator()
         {
-            Console.Write("Folder name:");
+            Console.Write("Folder name: ");
             var folderName = Console.ReadLine();
             Console.WriteLine("");
-            Console.Write("Localization:");
+            Console.Write("Localization: ");
             var localizationOnComputer = Console.ReadLine();
 
-            var folderPath = $"{localizationOnComputer}\\{folderName}";
-
-            return folderPath;
+            return $"{localizationOnComputer}\\{folderName}";
         }
-     
+
     }
 }
