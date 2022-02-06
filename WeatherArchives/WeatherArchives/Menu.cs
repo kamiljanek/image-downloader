@@ -46,7 +46,7 @@ namespace WeatherArchives
                 case "4":
                     Values.Title();
                     Values.completeFolderPath = FolderPathGenerator();
-                    CreateFolder(Values.completeFolderPath);
+                    CreateEntity.CreateFolder(Values.completeFolderPath);
                     break;
 
                 case "5":
@@ -145,9 +145,6 @@ namespace WeatherArchives
 
             return folderPath;
         }
-        static void CreateFolder(string folderPath)
-        {
-            Directory.CreateDirectory(folderPath);
-        }
+     
     }
 }

@@ -9,15 +9,14 @@ using WeatherArchives;
 
 namespace ImageDownloader
 {
-    internal class Query
+    internal class DbManager
     {
         string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WeatherArchivesDB;Integrated Security=True;";
-        string DBquery;
 
         internal List<string> URLListGenerator()
         {
             var URLs = new List<string>();
-            string query = $"SELECT {Values.dbo_URLs}";
+            string query = $"SELECT * from {Values.dbo_URLs}";
             DataRowCollection dataRow = QueryDB(query);
             foreach (DataRow item in dataRow)
             {
@@ -27,16 +26,16 @@ namespace ImageDownloader
         }
         internal string FilePathGenerator()
         {
-            string query = $"SELECT {Values.dbo_OwnersData}";
+            string query = $"SELECT * from {Values.dbo_OwnersData}";
             DataRowCollection dataRow = QueryDB(query);
 
             return dataRow[0]["FolderPath"].ToString();
         }
-        internal DataRowCollection QueryDB(string query)
+        private DataRowCollection QueryDB(string query)
         {
             using (SqlConnection sCon = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(query);
+                SqlCommand cmd = new SqlCommand(query, sCon);
                 DataSet ds = new DataSet();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 adapter.Fill(ds);

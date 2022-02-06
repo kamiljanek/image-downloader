@@ -22,13 +22,6 @@ namespace WeatherArchives
             Console.WriteLine(appTitle);
             Console.WriteLine("");
         }
-        static void StartDownload(List<WeatherForecast> selectedWeatherForcastList) //TODO export this method to other file
-        {
-            foreach (var val in selectedWeatherForcastList)
-            {
-                val.DownloadFile();
-            }
-
-        }
+  
     }
 }

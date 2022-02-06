@@ -18,12 +18,6 @@ namespace WeatherArchives
             Menu.MainMenu();
         }
 
-
-        static void CreateEachDayFolder(string eachDayFolder)
-        {
-            Directory.CreateDirectory($"{eachDayFolder}\\{DateTime.Now.ToString("dd.MM.yyyy")}");
-        }
-
     }
 }
 

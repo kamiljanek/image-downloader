@@ -9,19 +9,11 @@ namespace ImageDownloader
 {
     internal class Download
     {
-        List<string> URLs;
-        string filePath;
-        internal void DownloadFile()
+        internal void DownloadFile(string link, string path)
         {
-            Query query = new Query();
-            URLs = query.URLListGenerator();
-            filePath = query.FilePathGenerator();
             WebClient webClient = new WebClient();
-            foreach (var item in URLs)
-            {
-                webClient.DownloadFile(item, filePath);
-
-            }
+            webClient.DownloadFile(link, path);
         }
     }
 }
+
