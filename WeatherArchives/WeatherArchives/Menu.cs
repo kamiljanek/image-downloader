@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WeatherArchives
 {
-    internal static class Menu
+    internal class Menu
     {
 
         internal static void MainMenu()
@@ -20,7 +20,7 @@ namespace WeatherArchives
             Console.WriteLine("");
             Console.Write("Choose option: ");
 
-            Data data = new Data();
+            var data = new Data();
             string userInput = Console.ReadLine();
             switch (userInput)
             {
@@ -41,9 +41,9 @@ namespace WeatherArchives
 
                 case "4":
                     Title();
-                    Values.completeFolderPath = FolderPathGenerator();
-                    CaseMenu(data, Values.archiveFilePath, Values.completeFolderPath);
-                    Directory.CreateDirectory(Values.completeFolderPath);   //create new folder
+                    Values.folderPath = FolderPathGenerator();
+                    CaseMenu(data, Values.archiveFilePath, Values.folderPath);
+                    Directory.CreateDirectory(Values.folderPath);   //create new folder
                     break;
 
                 case "5":
@@ -133,6 +133,7 @@ namespace WeatherArchives
             Console.WriteLine("");
             Console.Write("Localization: ");
             var localizationOnComputer = Console.ReadLine();
+            localizationOnComputer = localizationOnComputer.Replace("\"",string.Empty);
 
             return $"{localizationOnComputer}\\{folderName}";
         }

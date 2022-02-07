@@ -7,8 +7,8 @@ namespace WeatherArchives
 {
     public class WeatherForecast
     {
-        private const string BaseUrl = "https://flymet.meteopress.cz/";
-        private const string UrlExtencion = ".png";
+        internal const string BaseUrl = "https://flymet.meteopress.cz/";
+        public const string UrlExtencion = ".png";
         public ForecastElement ForecastDay { get; set; }
         public ForecastElement ForecastType { get; set; }
         public ForecastElement ForecastHour { get; set; }

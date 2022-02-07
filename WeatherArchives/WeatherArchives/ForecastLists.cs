@@ -5,13 +5,13 @@ using System.Text;
 namespace WeatherArchives
 {
 
-    internal static class ForecastLists
+    public static class ForecastLists
     {
-        internal static List<ForecastElement> forecastDaysInput = new List<ForecastElement>();
-        internal static List<ForecastElement> forecastTypesInput = new List<ForecastElement>();
-        internal static List<ForecastElement> forecastHoursInput = new List<ForecastElement>();
-        internal static List<WeatherForecast> selectedForecastElements = new List<WeatherForecast>();
-        internal static List<string> completeURLList = new List<string>();
+        public static List<ForecastElement> forecastDaysInput = new List<ForecastElement>();
+        public static List<ForecastElement> forecastTypesInput = new List<ForecastElement>();
+        public static List<ForecastElement> forecastHoursInput = new List<ForecastElement>();
+        public static List<WeatherForecast> selectedForecastElements = new List<WeatherForecast>();
+        public static List<string> completeURLList = new List<string>();
 
 
         internal static List<ForecastElement> forecastDaysList = new List<ForecastElement>
@@ -46,15 +46,15 @@ namespace WeatherArchives
             }
             return forecastHourList;
         }
-        internal static List<WeatherForecast> GenerateDownloadItems()
+        public static List<WeatherForecast> GenerateDownloadItems(List<ForecastElement> dayElement, List<ForecastElement> typeElement, List<ForecastElement> hourElement)
         {
             var selectedForecastElements = new List<WeatherForecast>();
 
-            foreach (var DayInput in forecastDaysInput)
+            foreach (var DayInput in dayElement)
             {
-                foreach (var TypeInput in forecastTypesInput)
+                foreach (var TypeInput in typeElement)
                 {
-                    foreach (var HourInput in forecastHoursInput)
+                    foreach (var HourInput in hourElement)
                     {
                         var forecastEntity = new WeatherForecast(DayInput, TypeInput, HourInput);
                         selectedForecastElements.Add(forecastEntity);
@@ -65,14 +65,14 @@ namespace WeatherArchives
             return selectedForecastElements;
 
         }
-        internal static List<string> GeneratorURLs()
-        {
-            var URLList = new List<string>();
-            foreach (var item in selectedForecastElements)
-            {
-                URLList.Add(item.GenerateUrl());
-            }
-            return URLList;
-        }
+        //public static List<string> GeneratorURLs(List<WeatherForecast> selectedForecastElements)
+        //{
+        //    var URLList = new List<string>();
+        //    foreach (var item in selectedForecastElements)
+        //    {
+        //        URLList.Add(item.GenerateUrl());
+        //    }
+        //    return URLList;
+        //}
     }
 }

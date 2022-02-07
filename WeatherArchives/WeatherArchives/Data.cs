@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WeatherArchives
 {
-    internal class Data
+    public class Data
     {
         internal void FileGenerator(string txtFilePath, List<ForecastElement> forecastElements)
         {
@@ -22,7 +22,7 @@ namespace WeatherArchives
             sw.WriteLine($"{text}");
             sw.Close();
         }
-        internal List<ForecastElement> FileReader(string filePath, List<ForecastElement> forecastElements)
+        public List<ForecastElement> FileReader(string filePath, List<ForecastElement> forecastElements)
         {
             StreamReader sr = File.OpenText(filePath);
             string readedLine;
@@ -33,5 +33,6 @@ namespace WeatherArchives
             }
             return forecastElements;
         }
+
     }
 }

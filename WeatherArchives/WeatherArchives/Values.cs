@@ -15,9 +15,7 @@ namespace WeatherArchives
         public const string archiveFilePath = "archivePath.txt";
         internal const string appTitle = "WEATHER ARCHIVES";
         internal const string pageAdress = "http://flymet.meteopress.cz/";
-        internal static string completeFolderPath;
+        public static string folderPath;
 
-      
-  
     }
 }

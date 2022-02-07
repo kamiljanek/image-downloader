@@ -14,8 +14,8 @@ namespace WeatherArchives
 
         static void Main(string[] args)
         {
-            Values.Title();
             Menu.MainMenu();
+            
         }
 
     }
