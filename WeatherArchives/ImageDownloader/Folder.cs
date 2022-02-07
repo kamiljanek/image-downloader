@@ -10,12 +10,12 @@ namespace ImageDownloader
     {
         string filePath;
 
-        public string NewFolderPath(string date)
-        {
-            DbManager query = new DbManager();
-            filePath = query.FilePathGenerator();
+        //public string NewFolderPath(string date)
+        //{
+        //    //DbManager query = new DbManager();
+        //    //filePath = query.FilePathGenerator();
             
-            return $"{filePath}\\{date}";
-        }
+        //    //return $"{filePath}\\{date}";
+        //}
     }
 }

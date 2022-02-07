@@ -14,14 +14,14 @@ namespace WeatherArchives
         internal static List<string> completeURLList = new List<string>();
 
 
-        internal static List<ForecastElement> forecastDayList = new List<ForecastElement>
+        internal static List<ForecastElement> forecastDaysList = new List<ForecastElement>
             {
                  new ForecastElement("1", "cr/", "Today"),
                  new ForecastElement("2","crdl/","Tomorrow"),
                  new ForecastElement("3","crdl1/","Day After Tomorrow")
             };
 
-        internal static List<ForecastElement> forecastTypeList = new List<ForecastElement>
+        internal static List<ForecastElement> forecastTypesList = new List<ForecastElement>
             {
                 new ForecastElement("1","oblcX","All Clouds"),
                 new ForecastElement("2","srzk","Precipitation"),
@@ -35,7 +35,7 @@ namespace WeatherArchives
                 new ForecastElement("10","cukh","Cumulus Clouds"),
                 new ForecastElement("11","cuvr","Climb Speed")
              };
-        internal static List<ForecastElement> HourList()
+        internal static List<ForecastElement> HoursList()
         {
             List<ForecastElement> forecastHourList = new List<ForecastElement>();
 

@@ -10,13 +10,13 @@ namespace WeatherArchives
 
         internal static void MainMenu()
         {
-            Values.Title();
+            Title();
             Console.WriteLine($"1 - Forecast Days {Values.MainMenuEnds}");
             Console.WriteLine($"2 - Forecast Type {Values.MainMenuEnds}");
             Console.WriteLine($"3 - Forecast Hours {Values.MainMenuEnds}");
             Console.WriteLine($"4 - Create archive folder...");
             Console.WriteLine($"5 - Check settings...");
-            Console.WriteLine($"6 - Save settings...");
+            Console.WriteLine($"6 - Close application...");
             Console.WriteLine("");
             Console.Write("Choose option: ");
 
@@ -25,106 +25,94 @@ namespace WeatherArchives
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(data, ForecastLists.forecastDayList, Values.dayInputsFile);
+                    CaseMenu(data, ForecastLists.forecastDaysList, Values.dayInputsFilePath);
                     break;
 
                 case "2":
-                    CaseMenu(data, ForecastLists.forecastTypeList, Values.typeInputsFile);
+                    CaseMenu(data, ForecastLists.forecastTypesList, Values.typeInputsFilePath);
                     break;
 
                 case "3":
-                    Values.Title();
+                    Title();
                     Console.WriteLine("Choose hours between 1-24 ...");
                     Console.WriteLine("For example: 9,12,15,17");
-                    data.FileGenerator(Values.hourInputsFile, SelectedItemsList(ForecastLists.HourList()));
+                    data.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList()));
                     break;
 
                 case "4":
-                    CaseMenu(data, Values.archiveFile, FolderPathGenerator());
+                    Title();
+                    Values.completeFolderPath = FolderPathGenerator();
+                    CaseMenu(data, Values.archiveFilePath, Values.completeFolderPath);
+                    Directory.CreateDirectory(Values.completeFolderPath);   //create new folder
                     break;
 
                 case "5":
-                    Values.Title();
-                    CheckSettings();
+                    Title();
+                    ShowChoosenSetting(data, "Days:", Values.dayInputsFilePath, ForecastLists.forecastDaysInput);
+                    ShowChoosenSetting(data, "Types:", Values.typeInputsFilePath, ForecastLists.forecastTypesInput);
+                    ShowChoosenSetting(data, "Hours:", Values.hourInputsFilePath, ForecastLists.forecastHoursInput);
+                    Console.WriteLine("");
+                    Console.Write("To continue press ENTER...");
+                    Console.ReadKey();
                     break;
 
                 case "6":
-                    ForecastLists.selectedForecastElements = ForecastLists.GenerateDownloadItems();
-                    ForecastLists.completeURLList = ForecastLists.GeneratorURLs();
-                    SaveSettings();
-                    break;
+                    return;
 
                 default:
-                    Values.Title();
-                    Console.WriteLine("WRONG CHOOISE!!! TRY ONE MORE TIME");
                     break;
-
             }
+
             MainMenu();
 
         }
-
-        private static void CaseMenu(Data data, List<ForecastElement> forecastElements, string filePath)
+        private static void Title()
         {
-            Values.Title();
+            Console.Clear();
+            Console.SetCursorPosition((Console.WindowWidth - Values.pageAdress.Length) / 2, Console.CursorTop); //centering text
+            Console.WriteLine(Values.pageAdress);
+
+            Console.SetCursorPosition((Console.WindowWidth - Values.appTitle.Length) / 2, Console.CursorTop); //centering text
+            Console.WriteLine(Values.appTitle);
+            Console.WriteLine("");
+        }
+        private static void CaseMenu(Data d, List<ForecastElement> forecastElements, string filePath)
+        {
+            Title();
             ChoosenMenuView(forecastElements);
-            data.FileGenerator(filePath, SelectedItemsList(forecastElements));
-        }
-        private static void CaseMenu(Data data, string filePath, string text)
-        {
-            Values.Title();
-            data.FileGenerator(filePath, text);
-        }
-        private static void SaveSettings()
-        {
-            DataBase dataBase = new DataBase();
-            dataBase.ModifyTables();
+            d.FileGenerator(filePath, SelectedItemList(forecastElements));
         }
 
-        private static void CheckSettings()
+        private static void CaseMenu(Data d, string filePath, string text)
+        {
+            d.FileGenerator(filePath, text);
+        }
+
+        private static void ShowChoosenSetting(Data d, string nameOfSetting, string fileName, List<ForecastElement> selectedElements)
         {
             Console.WriteLine("");
-            Console.WriteLine("Days:");
-            foreach (var item in ForecastLists.forecastDaysInput)
+            Console.WriteLine(nameOfSetting);
+            var elements = d.FileReader(fileName, selectedElements);
+            foreach (var item in elements)
             {
                 Console.Write($"{item.Name}, ");
             }
             Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Types:");
-            foreach (var item in ForecastLists.forecastTypesInput)
-            {
-                Console.Write($"{item.Name}, ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Hours:");
-            foreach (var item in ForecastLists.forecastHoursInput)
-            {
-                Console.Write($"{item.Name}, ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("To continue press ENTER...");
-            Console.ReadKey();
         }
 
         internal static void ChoosenMenuView(List<ForecastElement> forecastLists)
         {
-
             foreach (ForecastElement val in forecastLists)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
             }
-
             Console.WriteLine("");
             Console.WriteLine("You can input multiple numbers, for example: 1,2,3");
             Console.Write("Choose numbers: ");
-
-
         }
-        internal static List<ForecastElement> SelectedItemsList(List<ForecastElement> forecastList)
-        {
 
+        internal static List<ForecastElement> SelectedItemList(List<ForecastElement> forecastList)
+        {
             string userInput = Console.ReadLine();
             string[] userInputs = userInput.Split(',');
 
@@ -136,8 +124,8 @@ namespace WeatherArchives
                 selectedItemsList.Add(selectedForecastDay);
             }
             return selectedItemsList;
-
         }
+
         static string FolderPathGenerator()
         {
             Console.Write("Folder name: ");
