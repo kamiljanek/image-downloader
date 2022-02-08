@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace WeatherArchives
+namespace Engine
 {
     public class Data
     {
-        internal void FileGenerator(string txtFilePath, List<ForecastElement> forecastElements)
+        public void FileGenerator(string txtFilePath, List<ForecastElement> forecastElements)
         {
             StreamWriter sw = File.CreateText(txtFilePath);
             foreach (var item in forecastElements)
@@ -16,7 +14,7 @@ namespace WeatherArchives
             }
             sw.Close();
         }
-        internal void FileGenerator(string txtFilePath, string text)
+        public void FileGenerator(string txtFilePath, string text)
         {
             StreamWriter sw = File.CreateText(txtFilePath);
             sw.WriteLine($"{text}");
@@ -31,6 +29,7 @@ namespace WeatherArchives
                 string[] vs = readedLine.Split(',');
                 forecastElements.Add(new ForecastElement(vs[0], vs[1], vs[2]));
             }
+            sr.Close();
             return forecastElements;
         }
 

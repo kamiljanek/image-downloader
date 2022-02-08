@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Engine;
+using System;
 using System.IO;
-using System.Threading.Tasks;
-using WeatherArchives;
 
 namespace ImageDownloader
 {
@@ -22,12 +20,9 @@ namespace ImageDownloader
             var selectedForecastElements = ForecastLists.GenerateDownloadItems(daysReaded, typesReaded, hoursReaded);
 
             Download.eachDayFolderPath = $"{pathReaded}\\{dateTime}";
-            Folder folder = new Folder();
-            var delay = Task.Delay(3000);
             Directory.CreateDirectory(Download.eachDayFolderPath);   //create new folder
-            delay.Wait();
 
-            selectedForecastElements.Downloader(pathReaded);
+            selectedForecastElements.Downloader();
 
 
 

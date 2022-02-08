@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Engine;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace WeatherArchives
+namespace UserInterface
 {
     internal class Menu
     {
@@ -111,7 +111,7 @@ namespace WeatherArchives
             Console.Write("Choose numbers: ");
         }
 
-        internal static List<ForecastElement> SelectedItemList(List<ForecastElement> forecastList)
+        private static List<ForecastElement> SelectedItemList(List<ForecastElement> forecastList)
         {
             string userInput = Console.ReadLine();
             string[] userInputs = userInput.Split(',');
@@ -126,14 +126,14 @@ namespace WeatherArchives
             return selectedItemsList;
         }
 
-        static string FolderPathGenerator()
+        private static string FolderPathGenerator()
         {
             Console.Write("Folder name: ");
             var folderName = Console.ReadLine();
             Console.WriteLine("");
             Console.Write("Localization: ");
             var localizationOnComputer = Console.ReadLine();
-            localizationOnComputer = localizationOnComputer.Replace("\"",string.Empty);
+            localizationOnComputer = localizationOnComputer.Replace("\"", string.Empty);
 
             return $"{localizationOnComputer}\\{folderName}";
         }

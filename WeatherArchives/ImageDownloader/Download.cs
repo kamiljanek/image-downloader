@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Engine;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using WeatherArchives;
 
 namespace ImageDownloader
 {
     internal static class Download
     {
         public static string eachDayFolderPath;
-        internal static void Downloader(this List<WeatherForecast> selectedForecastElements, string path)
+        internal static void Downloader(this List<WeatherForecast> selectedForecastElements)
         {
             foreach (var item in selectedForecastElements)
             {
@@ -23,7 +19,7 @@ namespace ImageDownloader
 
             }
         }
-    
+
     }
 }
 
