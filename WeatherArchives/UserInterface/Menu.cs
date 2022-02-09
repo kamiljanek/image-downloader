@@ -133,10 +133,9 @@ namespace UserInterface
             Console.WriteLine("");
             Console.Write("Localization: ");
             var localizationOnComputer = Console.ReadLine();
-            localizationOnComputer = localizationOnComputer.Replace("\"", string.Empty);
-
+            localizationOnComputer = localizationOnComputer.RemoveLastCharIfItIs('\\', '/').Replace("\"", string.Empty);
             return $"{localizationOnComputer}\\{folderName}";
         }
-
+  
     }
 }
