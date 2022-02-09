@@ -1,6 +1,6 @@
 # Forecast Archive
 ## Start:
-#### 1. To start creating your weather archives from "http://flymet.meteopress.cz/" first you have to run "userInterface.exe"
+#### 1. To start creating your weather archives from "http://flymet.meteopress.cz/" first you have to run "UserInterface.exe"
 #### 2. Set up your settings:
      - Forecast Days,
      - Forecast Type,
