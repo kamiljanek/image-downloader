@@ -14,9 +14,13 @@ namespace Engine
 
         public static List<ForecastElement> forecastDaysList = new List<ForecastElement>
             {
-                 new ForecastElement("1", "cr/", "Today"),
-                 new ForecastElement("2","crdl/","Tomorrow"),
-                 new ForecastElement("3","crdl1/","Day After Tomorrow")
+                 new ForecastElement("1", "cr/", "Czech Republic today"),
+                 new ForecastElement("2","crdl/","Czech Republic tomorrow"),
+                 new ForecastElement("3","pomezi/","Czech-Slovak border today"),
+                 new ForecastElement("4","pomezidl/","Czech-Slovak border tomorrow"),
+                 new ForecastElement("5","sk/","Slovakia today"),
+                 new ForecastElement("6","skdl/","Slovakia tomorrow"),
+                 new ForecastElement("7","stev4d/","Europe today")
             };
 
         public static List<ForecastElement> forecastTypesList = new List<ForecastElement>

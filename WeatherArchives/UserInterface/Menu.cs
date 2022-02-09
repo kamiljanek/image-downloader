@@ -11,9 +11,9 @@ namespace UserInterface
         internal static void MainMenu()
         {
             Title();
-            Console.WriteLine($"1 - Forecast Days {Values.MainMenuEnds}");
-            Console.WriteLine($"2 - Forecast Type {Values.MainMenuEnds}");
-            Console.WriteLine($"3 - Forecast Hours {Values.MainMenuEnds}");
+            Console.WriteLine($"1 - Forecast localization and day {Values.MainMenuEnds}");
+            Console.WriteLine($"2 - Forecast type {Values.MainMenuEnds}");
+            Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds}");
             Console.WriteLine($"4 - Create archive folder...");
             Console.WriteLine($"5 - Check settings...");
             Console.WriteLine($"6 - Close application...");
@@ -25,18 +25,18 @@ namespace UserInterface
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(data, ForecastLists.forecastDaysList, Values.dayInputsFilePath);
+                    CaseMenu(data, ForecastLists.forecastDaysList, Values.dayInputsFilePath);  
                     break;
 
                 case "2":
-                    CaseMenu(data, ForecastLists.forecastTypesList, Values.typeInputsFilePath);
+                    CaseMenu(data, ForecastLists.forecastTypesList, Values.typeInputsFilePath); 
                     break;
 
                 case "3":
                     Title();
                     Console.WriteLine("Choose hours between 1-24 ...");
                     Console.WriteLine("For example: 9,12,15,17");
-                    data.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList()));
+                    data.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList()));      //*.txt file generator
                     break;
 
                 case "4":
