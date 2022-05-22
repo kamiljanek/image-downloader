@@ -13,9 +13,9 @@ namespace ImageDownloader
             {
                 string URL = item.GenerateUrl();
                 string fileName = $"{item.ForecastDay.Name} - {item.ForecastType.Name} - {item.ForecastHour.Name}{WeatherForecast.UrlExtencion}";
-                string filePath = $"{eachDayFolderPath}\\{fileName}";
+                //string filePath = $"{eachDayFolderPath}\\{fileName}";
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(URL, filePath);
+                webClient.DownloadFile(URL, fileName);
 
             }
         }

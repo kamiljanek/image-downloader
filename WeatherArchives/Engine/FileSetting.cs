@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Engine
 {
-    public class Data
+    public class FileSetting
     {
         public void FileGenerator(string txtFilePath, List<ForecastElement> forecastElements)
         {
@@ -32,6 +32,17 @@ namespace Engine
             sr.Close();
             return forecastElements;
         }
-
+        public List<string> FileReader(string filePath, List<string> textLines)
+        {
+            StreamReader sr = File.OpenText(filePath);
+            string readedLine;
+            while ((readedLine = sr.ReadLine()) != null)
+            {
+                //string[] vs = readedLine.Split(',');
+                textLines.Add(readedLine);
+            }
+            sr.Close();
+            return textLines;
+        }
     }
 }

@@ -5,58 +5,63 @@ using System.IO;
 
 namespace UserInterface
 {
-    internal class Menu
+    public class Menu
     {
 
-        internal static void MainMenu()
+        public static void MainMenu()
         {
             Title();
-            Console.WriteLine($"1 - Forecast localization and day {Values.MainMenuEnds}");
+            Console.WriteLine($"1 - Forecast localization {Values.MainMenuEnds}");
             Console.WriteLine($"2 - Forecast type {Values.MainMenuEnds}");
-            Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds}");
-            Console.WriteLine($"4 - Create archive folder...");
+            Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds} UTC");
+            //Console.WriteLine($"4 - Create archive folder...");
             Console.WriteLine($"5 - Check settings...");
-            Console.WriteLine($"6 - Close application...");
+            Console.WriteLine($"6 - Email settings...");
+            Console.WriteLine($"c - Close application...");
             Console.WriteLine("");
             Console.Write("Choose option: ");
 
-            var data = new Data();
+            var fileSetting = new FileSetting();
             string userInput = Console.ReadLine();
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(data, ForecastLists.forecastDaysList, Values.dayInputsFilePath);  
+                    CaseMenu(fileSetting, ForecastLists.forecastDaysList, Values.dayInputsFilePath);  
                     break;
 
                 case "2":
-                    CaseMenu(data, ForecastLists.forecastTypesList, Values.typeInputsFilePath); 
+                    CaseMenu(fileSetting, ForecastLists.forecastTypesList, Values.typeInputsFilePath); 
                     break;
 
                 case "3":
                     Title();
                     Console.WriteLine("Choose hours between 1-24 ...");
-                    Console.WriteLine("For example: 9,12,15,17");
-                    data.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList()));      //*.txt file generator
+                    Console.WriteLine("For example: 9,12,15,17 UTC");
+                    fileSetting.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList()));      //*.txt file generator
                     break;
 
-                case "4":
-                    Title();
-                    Values.folderPath = FolderPathGenerator();
-                    CaseMenu(data, Values.archiveFilePath, Values.folderPath);
-                    Directory.CreateDirectory(Values.folderPath);   //create new folder
-                    break;
+                //case "4":
+                //    Title();
+                //    Values.folderPath = FolderPathGenerator();
+                //    CaseMenu(fileSetting, Values.archiveFilePath, Values.folderPath);
+                //    Directory.CreateDirectory(Values.folderPath);   //create new folder
+                //    break;
 
                 case "5":
                     Title();
-                    ShowChoosenSetting(data, "Days:", Values.dayInputsFilePath, ForecastLists.forecastDaysInput);
-                    ShowChoosenSetting(data, "Types:", Values.typeInputsFilePath, ForecastLists.forecastTypesInput);
-                    ShowChoosenSetting(data, "Hours:", Values.hourInputsFilePath, ForecastLists.forecastHoursInput);
+                    ShowChoosenSetting(fileSetting, "Days:", Values.dayInputsFilePath, ForecastLists.forecastDaysInput);
+                    ShowChoosenSetting(fileSetting, "Types:", Values.typeInputsFilePath, ForecastLists.forecastTypesInput);
+                    ShowChoosenSetting(fileSetting, "Hours:", Values.hourInputsFilePath, ForecastLists.forecastHoursInput);
                     Console.WriteLine("");
                     Console.Write("To continue press ENTER...");
                     Console.ReadKey();
                     break;
 
                 case "6":
+                    CaseMenu(fileSetting, Values.emailInputsFilePath, UserEmailData());
+                    break;
+
+                case "c":
                     return;
 
                 default:
@@ -66,6 +71,18 @@ namespace UserInterface
             MainMenu();
 
         }
+
+        private static string UserEmailData()
+        {
+            Title();
+            Console.WriteLine("Input your Gmail address:");
+            var userEmailAddress = Console.ReadLine();
+            Console.WriteLine("Input your Gmail password:");
+            var userEmailPassword = Console.ReadLine();
+
+            return userEmailAddress + "\n" + userEmailPassword;
+        }
+
         private static void Title()
         {
             Console.Clear();
@@ -76,19 +93,19 @@ namespace UserInterface
             Console.WriteLine(Values.appTitle);
             Console.WriteLine("");
         }
-        private static void CaseMenu(Data d, List<ForecastElement> forecastElements, string filePath)
+        private static void CaseMenu(FileSetting d, List<ForecastElement> forecastElements, string filePath)
         {
             Title();
             ChoosenMenuView(forecastElements);
             d.FileGenerator(filePath, SelectedItemList(forecastElements));
         }
 
-        private static void CaseMenu(Data d, string filePath, string text)
+        private static void CaseMenu(FileSetting d, string filePath, string text)
         {
             d.FileGenerator(filePath, text);
         }
-
-        private static void ShowChoosenSetting(Data d, string nameOfSetting, string fileName, List<ForecastElement> selectedElements)
+    
+        private static void ShowChoosenSetting(FileSetting d, string nameOfSetting, string fileName, List<ForecastElement> selectedElements)
         {
             Console.WriteLine("");
             Console.WriteLine(nameOfSetting);
@@ -100,7 +117,7 @@ namespace UserInterface
             Console.WriteLine("");
         }
 
-        internal static void ChoosenMenuView(List<ForecastElement> forecastLists)
+        public static void ChoosenMenuView(List<ForecastElement> forecastLists)
         {
             foreach (ForecastElement val in forecastLists)
             {
