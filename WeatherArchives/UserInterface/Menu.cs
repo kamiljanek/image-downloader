@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,18 +27,23 @@ namespace UserInterface
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(fileSetting, ForecastLists.forecastDaysList, Values.dayInputsFilePath);  
+                    CaseMenu(fileSetting, ForecastLists.forecastLocationsList, Values.regionFilePath);  
                     break;
 
                 case "2":
-                    CaseMenu(fileSetting, ForecastLists.forecastTypesList, Values.typeInputsFilePath); 
+                    CaseMenu(fileSetting, ForecastLists.forecastProductsList, Values.productFilePath); 
                     break;
 
                 case "3":
-                    Title();
-                    Console.WriteLine("Choose hours between 1-24 ...");
-                    Console.WriteLine("For example: 9,12,15,17 UTC");
-                    fileSetting.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList()));      //*.txt file generator
+                    CaseMenu(fileSetting, ForecastLists.ForecastTimesList(), Values.timeFilePath); 
+
+                    //Title();
+                    //Console.WriteLine("Choose hours between 1-24 ...");
+                    //Console.WriteLine("For example: 9,12,15,17 UTC");
+                    //string hoursUserInput = Console.ReadLine();
+                    //var selectedHours = SelectedItemList(ForecastLists.ForecastTimesList(), hoursUserInput);
+                    //fileSetting.FileGenerator(Values.timeFilePath, selectedHours);
+                    //fileSetting.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList(), hoursUserInput));      //*.txt file generator
                     break;
 
                 //case "4":
@@ -49,9 +55,9 @@ namespace UserInterface
 
                 case "5":
                     Title();
-                    ShowChoosenSetting(fileSetting, "Days:", Values.dayInputsFilePath, ForecastLists.forecastDaysInput);
-                    ShowChoosenSetting(fileSetting, "Types:", Values.typeInputsFilePath, ForecastLists.forecastTypesInput);
-                    ShowChoosenSetting(fileSetting, "Hours:", Values.hourInputsFilePath, ForecastLists.forecastHoursInput);
+                    ShowChoosenSetting(fileSetting, "Days:", Values.regionFilePath, ForecastLists.forecastDaysInput);
+                    ShowChoosenSetting(fileSetting, "Types:", Values.productFilePath, ForecastLists.forecastTypesInput);
+                    ShowChoosenSetting(fileSetting, "Hours:", Values.timeFilePath, ForecastLists.forecastHoursInput);
                     Console.WriteLine("");
                     Console.Write("To continue press ENTER...");
                     Console.ReadKey();
@@ -96,8 +102,9 @@ namespace UserInterface
         private static void CaseMenu(FileSetting d, List<ForecastElement> forecastElements, string filePath)
         {
             Title();
-            ChoosenMenuView(forecastElements);
-            d.FileGenerator(filePath, SelectedItemList(forecastElements));
+            var userInput = ChoosenMenuView(forecastElements);
+            var selectedItems = SelectedItemList(forecastElements, userInput);
+            d.FileGenerator(filePath, selectedItems);
         }
 
         private static void CaseMenu(FileSetting d, string filePath, string text)
@@ -117,7 +124,7 @@ namespace UserInterface
             Console.WriteLine("");
         }
 
-        public static void ChoosenMenuView(List<ForecastElement> forecastLists)
+        public static string ChoosenMenuView(List<ForecastElement> forecastLists)
         {
             foreach (ForecastElement val in forecastLists)
             {
@@ -126,11 +133,11 @@ namespace UserInterface
             Console.WriteLine("");
             Console.WriteLine("You can input multiple numbers, for example: 1,2,3");
             Console.Write("Choose numbers: ");
+            return Console.ReadLine();
         }
 
-        private static List<ForecastElement> SelectedItemList(List<ForecastElement> forecastList)
+        private static List<ForecastElement> SelectedItemList(List<ForecastElement> forecastList, string userInput)
         {
-            string userInput = Console.ReadLine();
             string[] userInputs = userInput.Split(',');
 
             var selectedItemsList = new List<ForecastElement>();

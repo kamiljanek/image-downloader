@@ -12,7 +12,7 @@ namespace Engine
         public static List<string> completeURLList = new List<string>();
 
 
-        public static List<ForecastElement> forecastDaysList = new List<ForecastElement>
+        public static List<ForecastElement> forecastLocationsList = new List<ForecastElement>
             {
                  new ForecastElement("1", "cr/", "Czech Republic today"),
                  new ForecastElement("2","crdl/","Czech Republic tomorrow"),
@@ -23,7 +23,7 @@ namespace Engine
                  new ForecastElement("7","stev4d/","Europe today")
             };
 
-        public static List<ForecastElement> forecastTypesList = new List<ForecastElement>
+        public static List<ForecastElement> forecastProductsList = new List<ForecastElement>
             {
                 new ForecastElement("1","oblcH","High clouds"),
                 new ForecastElement("2","oblcM","Medium clouds"),
@@ -53,7 +53,7 @@ namespace Engine
                 new ForecastElement("26","curye","Climb speed 3000m"),
                 new ForecastElement("27","curyf","Climb speed 3500m")
              };
-        public static List<ForecastElement> HoursList()
+        public static List<ForecastElement> ForecastTimesList()
         {
             List<ForecastElement> forecastHourList = new List<ForecastElement>();
 

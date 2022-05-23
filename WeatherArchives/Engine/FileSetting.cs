@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Engine
@@ -19,6 +20,11 @@ namespace Engine
             StreamWriter sw = File.CreateText(txtFilePath);
             sw.WriteLine($"{text}");
             sw.Close();
+        }
+        public void FileGenerator(string jsonFilePath, object selectedItems)
+        {
+            var itemSerialized = JsonConvert.SerializeObject(selectedItems);
+            File.WriteAllText(jsonFilePath, itemSerialized);
         }
         public List<ForecastElement> FileReader(string filePath, List<ForecastElement> forecastElements)
         {
