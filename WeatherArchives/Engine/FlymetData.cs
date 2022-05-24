@@ -3,12 +3,12 @@
 namespace Engine
 {
 
-    public static class ForecastLists
+    public static class FlymetData
     {
-        public static List<ForecastElement> forecastDaysInput = new List<ForecastElement>();
-        public static List<ForecastElement> forecastTypesInput = new List<ForecastElement>();
-        public static List<ForecastElement> forecastHoursInput = new List<ForecastElement>();
-        public static List<WeatherForecast> selectedForecastElements = new List<WeatherForecast>();
+        //public static List<ForecastElement> forecastDaysInput = new List<ForecastElement>();
+        //public static List<ForecastElement> forecastTypesInput = new List<ForecastElement>();
+        //public static List<ForecastElement> forecastHoursInput = new List<ForecastElement>();
+        //public static List<WeatherForecast> selectedForecastElements = new List<WeatherForecast>();
         public static List<string> completeURLList = new List<string>();
 
 

@@ -9,16 +9,16 @@ namespace ImageDownloader
         static void Main(string[] args)
         {
             var data = new FileSetting();
-            var daysReaded = data.FileReader(Values.regionFilePath, ForecastLists.forecastDaysInput);
-            var typesReaded = data.FileReader(Values.productFilePath, ForecastLists.forecastTypesInput);
-            var hoursReaded = data.FileReader(Values.timeFilePath, ForecastLists.forecastHoursInput);
-            var emailReaded = data.FileReader(Values.emailInputsFilePath, Gmail.emailInput);
+            var fileReadedRegion = data.FileReader<ForecastElement>(Values.regionFilePath);
+            var fileReadedProduct = data.FileReader<ForecastElement>(Values.productFilePath);
+            var fileReadedTime = data.FileReader<ForecastElement>(Values.timeFilePath);
+            var fileReadedGmail = data.FileReader<string>(Values.gmailFilePath);
 
-            var selectedForecastElements = ForecastLists.GenerateDownloadItems(daysReaded, typesReaded, hoursReaded);
+            var selectedForecastElements = FlymetData.GenerateDownloadItems(fileReadedRegion, fileReadedProduct, fileReadedTime);
 
             selectedForecastElements.Downloader();
 
-            EmailSender.Sender(emailReaded[0],emailReaded[1]);
+            EmailSender.Sender(fileReadedGmail[0],fileReadedGmail[1]);
 
         }
 

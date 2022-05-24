@@ -2,6 +2,10 @@
 {
     public class ForecastElement
     {
+        public ForecastElement()
+        {
+
+        }
         public ForecastElement(string id, string code, string name)
         {
             Id = id;

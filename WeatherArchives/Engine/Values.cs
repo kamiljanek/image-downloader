@@ -6,7 +6,7 @@
         public const string regionFilePath = "region_UserSelection.json";
         public const string productFilePath = "product_UserSelection.json";
         public const string timeFilePath = "time_UserSelection.json";
-        public const string emailInputsFilePath = "email_UserInputs.json";
+        public const string gmailFilePath = "email_UserInputs.json";
         public const string archiveFilePath = "archivePath.txt";
         public const string appTitle = "WEATHER ARCHIVES";
         public const string pageAdress = "http://flymet.meteopress.cz/";

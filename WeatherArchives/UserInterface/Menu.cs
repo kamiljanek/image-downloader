@@ -15,9 +15,8 @@ namespace UserInterface
             Console.WriteLine($"1 - Forecast localization {Values.MainMenuEnds}");
             Console.WriteLine($"2 - Forecast type {Values.MainMenuEnds}");
             Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds} UTC");
-            //Console.WriteLine($"4 - Create archive folder...");
+            Console.WriteLine($"4 - Email settings...");
             Console.WriteLine($"5 - Check settings...");
-            Console.WriteLine($"6 - Email settings...");
             Console.WriteLine($"c - Close application...");
             Console.WriteLine("");
             Console.Write("Choose option: ");
@@ -27,44 +26,29 @@ namespace UserInterface
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(fileSetting, ForecastLists.forecastLocationsList, Values.regionFilePath);  
+                    CaseMenu(fileSetting, FlymetData.forecastLocationsList, Values.regionFilePath);  
                     break;
 
                 case "2":
-                    CaseMenu(fileSetting, ForecastLists.forecastProductsList, Values.productFilePath); 
+                    CaseMenu(fileSetting, FlymetData.forecastProductsList, Values.productFilePath); 
                     break;
 
                 case "3":
-                    CaseMenu(fileSetting, ForecastLists.ForecastTimesList(), Values.timeFilePath); 
-
-                    //Title();
-                    //Console.WriteLine("Choose hours between 1-24 ...");
-                    //Console.WriteLine("For example: 9,12,15,17 UTC");
-                    //string hoursUserInput = Console.ReadLine();
-                    //var selectedHours = SelectedItemList(ForecastLists.ForecastTimesList(), hoursUserInput);
-                    //fileSetting.FileGenerator(Values.timeFilePath, selectedHours);
-                    //fileSetting.FileGenerator(Values.hourInputsFilePath, SelectedItemList(ForecastLists.HoursList(), hoursUserInput));      //*.txt file generator
+                    CaseMenu(fileSetting, FlymetData.ForecastTimesList(), Values.timeFilePath); 
                     break;
 
-                //case "4":
-                //    Title();
-                //    Values.folderPath = FolderPathGenerator();
-                //    CaseMenu(fileSetting, Values.archiveFilePath, Values.folderPath);
-                //    Directory.CreateDirectory(Values.folderPath);   //create new folder
-                //    break;
+                case "4":
+                    CaseMenu(fileSetting, UserEmailData(), Values.gmailFilePath);
+                    break;
 
                 case "5":
                     Title();
-                    ShowChoosenSetting(fileSetting, "Days:", Values.regionFilePath, ForecastLists.forecastDaysInput);
-                    ShowChoosenSetting(fileSetting, "Types:", Values.productFilePath, ForecastLists.forecastTypesInput);
-                    ShowChoosenSetting(fileSetting, "Hours:", Values.timeFilePath, ForecastLists.forecastHoursInput);
+                    ShowChoosenSetting(fileSetting, "Regions:", Values.regionFilePath, UserElement.forecastDaysInput);
+                    ShowChoosenSetting(fileSetting, "Products:", Values.productFilePath, UserElement.forecastTypesInput);
+                    ShowChoosenSetting(fileSetting, "Times:", Values.timeFilePath, UserElement.forecastHoursInput);
                     Console.WriteLine("");
                     Console.Write("To continue press ENTER...");
                     Console.ReadKey();
-                    break;
-
-                case "6":
-                    CaseMenu(fileSetting, Values.emailInputsFilePath, UserEmailData());
                     break;
 
                 case "c":
@@ -78,15 +62,17 @@ namespace UserInterface
 
         }
 
-        private static string UserEmailData()
+        private static List<string> UserEmailData()
         {
             Title();
             Console.WriteLine("Input your Gmail address:");
             var userEmailAddress = Console.ReadLine();
             Console.WriteLine("Input your Gmail password:");
             var userEmailPassword = Console.ReadLine();
+            UserElement.gmailInput.Add(userEmailAddress);
+            UserElement.gmailInput.Add(userEmailPassword);
 
-            return userEmailAddress + "\n" + userEmailPassword;
+            return UserElement.gmailInput;
         }
 
         private static void Title()
@@ -107,16 +93,16 @@ namespace UserInterface
             d.FileGenerator(filePath, selectedItems);
         }
 
-        private static void CaseMenu(FileSetting d, string filePath, string text)
+        private static void CaseMenu(FileSetting d, List<string> gmailData, string filePath)
         {
-            d.FileGenerator(filePath, text);
+            d.FileGenerator(filePath, gmailData);
         }
     
-        private static void ShowChoosenSetting(FileSetting d, string nameOfSetting, string fileName, List<ForecastElement> selectedElements)
+        private static void ShowChoosenSetting(FileSetting d, string nameOfSetting, string filePath, List<ForecastElement> selectedElements)
         {
             Console.WriteLine("");
             Console.WriteLine(nameOfSetting);
-            var elements = d.FileReader(fileName, selectedElements);
+            var elements = d.FileReader<ForecastElement>(filePath);
             foreach (var item in elements)
             {
                 Console.Write($"{item.Name}, ");
