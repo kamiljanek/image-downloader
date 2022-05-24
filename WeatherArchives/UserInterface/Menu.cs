@@ -26,7 +26,7 @@ namespace UserInterface
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(fileSetting, FlymetData.forecastLocationsList, Values.regionFilePath);  
+                    CaseMenu(fileSetting, FlymetData.forecastRegionsList, Values.regionFilePath);  
                     break;
 
                 case "2":
@@ -134,18 +134,6 @@ namespace UserInterface
                 selectedItemsList.Add(selectedForecastDay);
             }
             return selectedItemsList;
-        }
-
-        private static string FolderPathGenerator()
-        {
-            Console.Write("Folder name: ");
-            var folderName = Console.ReadLine();
-            Console.WriteLine("");
-            Console.Write("Localization: ");
-            var localizationOnComputer = Console.ReadLine();
-            localizationOnComputer = localizationOnComputer.RemoveLastCharIfItIs('\\', '/').Replace("\"", string.Empty);
-            return $"{localizationOnComputer}\\{folderName}";
-        }
-  
+        } 
     }
 }
