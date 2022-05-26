@@ -1,8 +1,6 @@
-﻿using Engine;
-using Newtonsoft.Json;
+﻿using Flymet;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace UserInterface
 {
@@ -26,15 +24,15 @@ namespace UserInterface
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(fileSetting, FlymetData.forecastRegionsList, Values.regionFilePath);  
+                    CaseMenu(fileSetting, FlymetData.forecastRegionsList, Values.regionFilePath);
                     break;
 
                 case "2":
-                    CaseMenu(fileSetting, FlymetData.forecastProductsList, Values.productFilePath); 
+                    CaseMenu(fileSetting, FlymetData.forecastProductsList, Values.productFilePath);
                     break;
 
                 case "3":
-                    CaseMenu(fileSetting, FlymetData.ForecastTimesList(), Values.timeFilePath); 
+                    CaseMenu(fileSetting, FlymetData.ForecastTimesList(), Values.timeFilePath);
                     break;
 
                 case "4":
@@ -97,7 +95,7 @@ namespace UserInterface
         {
             d.FileGenerator(filePath, gmailData);
         }
-    
+
         private static void ShowChoosenSetting(FileSetting d, string nameOfSetting, string filePath, List<ForecastElement> selectedElements)
         {
             Console.WriteLine("");
@@ -134,6 +132,6 @@ namespace UserInterface
                 selectedItemsList.Add(selectedForecastDay);
             }
             return selectedItemsList;
-        } 
+        }
     }
 }
