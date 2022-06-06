@@ -1,6 +1,7 @@
 ﻿using Flymet;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,30 +47,51 @@ namespace UserInterface
         public static void CaseMenuShowChoosenOptions(FileOperation fileOperation)
         {
             Title();
-            DisplayChoosenOptions(fileOperation, "Regions:", Values.regionFilePath);
-            DisplayChoosenOptions(fileOperation, "Products:", Values.productFilePath);
-            DisplayChoosenOptions(fileOperation, "Times:", Values.timeFilePath);
+            DisplayChoosenOptions(fileOperation);
             Console.WriteLine("");
             Console.Write("To continue press ENTER...");
             Console.ReadKey();
         }
-        /// <summary>
-        /// Display one part of options chosed by user
-        /// </summary>
-        /// <param name="fileOperation">File Operation</param>
-        /// <param name="nameOfOptions">Title of options</param>
-        /// <param name="filePath">Name or whole path of file with settings</param>
-        public static void DisplayChoosenOptions(FileOperation fileOperation, string nameOfOptions, string filePath)
+
+        public static void DisplayChoosenOptions(FileOperation fileOperation)
         {
-            Console.WriteLine("");
-            Console.WriteLine(nameOfOptions);
-            var elements = fileOperation.FileReader<ForecastUrlElement>(filePath);
-            foreach (var item in elements)
-            {
-                Console.Write($"{item.Name}, ");
+            try
+            {          
+                DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory()); //relative folder path
+                FileInfo[] Files = d.GetFiles("UserSelection*"); //Getting all image files
+                foreach (FileInfo file in Files)
+                {
+                    Console.WriteLine("");
+                    var title = file.Name.Replace(".json", string.Empty).Replace("UserSelection_", string.Empty).ToUpper();
+                    Console.WriteLine(title);
+                    var elements = fileOperation.FileReader<ForecastUrlElement>(file.FullName);
+                    foreach (var item in elements)
+                    {
+                        Console.Write($"{item.Name}, ");
+                    }
+                    Console.WriteLine("");
+                }
             }
-            Console.WriteLine("");
+            catch (Exception ex)
+            {
+                Console.WriteLine("Cannot find file. Error : " + ex);
+            }
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Display choosen menu with options
         /// </summary>
