@@ -6,41 +6,34 @@ namespace UserInterface
 {
     public class Menu
     {
-
-        public static void MainMenu()
+        public void UserInterface()
         {
-            Display.Title();
-            Console.WriteLine($"1 - Forecast localization {Values.MainMenuEnds}");
-            Console.WriteLine($"2 - Forecast type {Values.MainMenuEnds}");
-            Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds} UTC");
-            Console.WriteLine($"4 - Email settings...");
-            Console.WriteLine($"5 - Check settings...");
-            Console.WriteLine($"c - Close application...");
-            Console.WriteLine("");
-            Console.Write("Choose option: ");
-
+            var display = new Display();
             var fileOperation = new FileOperation();
+            
+            display.MainMenu();
+
             string userInput = Console.ReadLine();
             switch (userInput)
             {
                 case "1":
-                    Display.CaseMenuOptions(fileOperation, FlymetData.forecastRegionsList, Values.regionFilePath);
+                    display.CaseMenuOptions(fileOperation, Values.regionFilePath, FlymetData.forecastRegionsList);
                     break;
 
                 case "2":
-                    Display.CaseMenuOptions(fileOperation, FlymetData.forecastProductsList, Values.productFilePath);
+                    display.CaseMenuOptions(fileOperation, Values.productFilePath, FlymetData.forecastProductsList);
                     break;
 
                 case "3":
-                    Display.CaseMenuOptions(fileOperation, FlymetData.ForecastTimesList(), Values.timeFilePath);
+                    display.CaseMenuOptions(fileOperation, Values.timeFilePath, FlymetData.ForecastTimesList());
                     break;
 
                 case "4":
-                    Display.CaseMenuGmail(fileOperation, Values.gmailFilePath);
+                    display.CaseMenuGmail(fileOperation, Values.gmailFilePath);
                     break;
 
                 case "5":
-                    Display.CaseMenuShowChoosenOptions(fileOperation);
+                    display.CaseMenuChoosenOptions(fileOperation);
                     break;
 
                 case "c":
@@ -50,8 +43,9 @@ namespace UserInterface
                     break;
             }
 
-            MainMenu();
+            UserInterface();
 
+      
         }
 
 

@@ -10,7 +10,7 @@ namespace UserInterface
 {
     public class Display
     {
-        public static void Title()
+        public void Title()
         {
             Console.Clear();
             Console.SetCursorPosition((Console.WindowWidth - Values.pageAdress.Length) / 2, Console.CursorTop); //centering text
@@ -20,13 +20,25 @@ namespace UserInterface
             Console.WriteLine(Values.appTitle);
             Console.WriteLine("");
         }
+        public void MainMenu()
+        {
+            Title();
+            Console.WriteLine($"1 - Forecast localization {Values.MainMenuEnds}");
+            Console.WriteLine($"2 - Forecast type {Values.MainMenuEnds}");
+            Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds} UTC");
+            Console.WriteLine($"4 - Email settings...");
+            Console.WriteLine($"5 - Check settings...");
+            Console.WriteLine($"c - Close application...");
+            Console.WriteLine("");
+            Console.Write("Choose option: ");
+        }
         /// <summary>
         /// Display menu of product with options to choose
         /// </summary>
         /// <param name="fileOperation">FileOperation instance</param>
-        /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
         /// <param name="filePath">Name or whole path of file to create</param>
-        public static void CaseMenuOptions(FileOperation fileOperation, List<ForecastUrlElement> forecastElements, string filePath)
+        /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
+        public void CaseMenuOptions(FileOperation fileOperation, string filePath,  List<ForecastUrlElement> forecastElements)
         {
             Title();
             var userInput = DisplayChoosenMenu(forecastElements);
@@ -38,13 +50,13 @@ namespace UserInterface
         /// </summary>
         /// <param name="fileOperation">File Operation</param>
         /// <param name="filePath">Name or whole path of file to create</param>
-        public static void CaseMenuGmail(FileOperation fileOperation, string filePath)
+        public void CaseMenuGmail(FileOperation fileOperation, string filePath)
         {
             Title();
             var gmailData = GetUserGmailData();
             fileOperation.FileGenerator(filePath, gmailData);
         }
-        public static void CaseMenuShowChoosenOptions(FileOperation fileOperation)
+        public void CaseMenuChoosenOptions(FileOperation fileOperation)
         {
             Title();
             DisplayChoosenOptions(fileOperation);
@@ -53,12 +65,12 @@ namespace UserInterface
             Console.ReadKey();
         }
 
-        public static void DisplayChoosenOptions(FileOperation fileOperation)
+        private void DisplayChoosenOptions(FileOperation fileOperation)
         {
             try
             {          
                 DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory()); //relative folder path
-                FileInfo[] Files = d.GetFiles("UserSelection*"); //Getting all image files
+                FileInfo[] Files = d.GetFiles("UserSelection*"); //Getting all UserSelection files
                 foreach (FileInfo file in Files)
                 {
                     Console.WriteLine("");
