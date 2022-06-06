@@ -19,31 +19,31 @@ namespace UserInterface
             Console.WriteLine("");
             Console.Write("Choose option: ");
 
-            var fileSetting = new FileSetting();
+            var fileOperation = new FileOperation();
             string userInput = Console.ReadLine();
             switch (userInput)
             {
                 case "1":
-                    CaseMenu(fileSetting, FlymetData.forecastRegionsList, Values.regionFilePath);
+                    CaseMenuOptions(fileOperation, FlymetData.forecastRegionsList, Values.regionFilePath);
                     break;
 
                 case "2":
-                    CaseMenu(fileSetting, FlymetData.forecastProductsList, Values.productFilePath);
+                    CaseMenuOptions(fileOperation, FlymetData.forecastProductsList, Values.productFilePath);
                     break;
 
                 case "3":
-                    CaseMenu(fileSetting, FlymetData.ForecastTimesList(), Values.timeFilePath);
+                    CaseMenuOptions(fileOperation, FlymetData.ForecastTimesList(), Values.timeFilePath);
                     break;
 
                 case "4":
-                    CaseMenu(fileSetting, UserEmailData(), Values.gmailFilePath);
+                    CaseMenuGmail(fileOperation, Values.gmailFilePath);
                     break;
 
                 case "5":
                     Title();
-                    ShowChoosenSetting(fileSetting, "Regions:", Values.regionFilePath, UserElement.forecastDaysInput);
-                    ShowChoosenSetting(fileSetting, "Products:", Values.productFilePath, UserElement.forecastTypesInput);
-                    ShowChoosenSetting(fileSetting, "Times:", Values.timeFilePath, UserElement.forecastHoursInput);
+                    DisplayChoosenOptions(fileOperation, "Regions:", Values.regionFilePath);
+                    DisplayChoosenOptions(fileOperation, "Products:", Values.productFilePath);
+                    DisplayChoosenOptions(fileOperation, "Times:", Values.timeFilePath);
                     Console.WriteLine("");
                     Console.Write("To continue press ENTER...");
                     Console.ReadKey();
@@ -60,9 +60,8 @@ namespace UserInterface
 
         }
 
-        private static List<string> UserEmailData()
+        private static List<string> GetUserGmailData()
         {
-            Title();
             Console.WriteLine("Input your Gmail address:");
             var userEmailAddress = Console.ReadLine();
             Console.WriteLine("Input your Gmail password:");
@@ -83,34 +82,55 @@ namespace UserInterface
             Console.WriteLine(Values.appTitle);
             Console.WriteLine("");
         }
-        private static void CaseMenu(FileSetting d, List<ForecastElement> forecastElements, string filePath)
+        /// <summary>
+        /// Display menu of product with options to choose
+        /// </summary>
+        /// <param name="fileOperation">FileOperation instance</param>
+        /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
+        /// <param name="filePath">Name or whole path of file to create</param>
+        private static void CaseMenuOptions(FileOperation fileOperation, List<ForecastUrlElement> forecastElements, string filePath)
         {
             Title();
-            var userInput = ChoosenMenuView(forecastElements);
-            var selectedItems = SelectedItemList(forecastElements, userInput);
-            d.FileGenerator(filePath, selectedItems);
+            var userInput = DisplayChoosenMenu(forecastElements);
+            var selectedItems = SelectUrlElements(forecastElements, userInput);
+            fileOperation.FileGenerator(filePath, selectedItems);
         }
-
-        private static void CaseMenu(FileSetting d, List<string> gmailData, string filePath)
+        /// <summary>
+        /// Display menu to input login and password of Gmail
+        /// </summary>
+        /// <param name="fileOperation">File Operation</param>
+        /// <param name="filePath">Name or whole path of file to create</param>
+        private static void CaseMenuGmail(FileOperation fileOperation, string filePath)
         {
-            d.FileGenerator(filePath, gmailData);
+            Title();
+            var gmailData = GetUserGmailData();
+            fileOperation.FileGenerator(filePath, gmailData);
         }
-
-        private static void ShowChoosenSetting(FileSetting d, string nameOfSetting, string filePath, List<ForecastElement> selectedElements)
+        /// <summary>
+        /// Display one part of options chosed by user
+        /// </summary>
+        /// <param name="fileOperation">File Operation</param>
+        /// <param name="nameOfOptions">Title of options</param>
+        /// <param name="filePath">Name or whole path of file with settings</param>
+        private static void DisplayChoosenOptions(FileOperation fileOperation, string nameOfOptions, string filePath)
         {
             Console.WriteLine("");
-            Console.WriteLine(nameOfSetting);
-            var elements = d.FileReader<ForecastElement>(filePath);
+            Console.WriteLine(nameOfOptions);
+            var elements = fileOperation.FileReader<ForecastUrlElement>(filePath);
             foreach (var item in elements)
             {
                 Console.Write($"{item.Name}, ");
             }
             Console.WriteLine("");
         }
-
-        public static string ChoosenMenuView(List<ForecastElement> forecastLists)
+        /// <summary>
+        /// Display choosen menu with options
+        /// </summary>
+        /// <param name="forecastElements">Whole list of Url Elements</param>
+        /// <returns>Return string with choosen elements by user</returns>
+        public static string DisplayChoosenMenu(List<ForecastUrlElement> forecastElements)
         {
-            foreach (ForecastElement val in forecastLists)
+            foreach (ForecastUrlElement val in forecastElements)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
             }
@@ -119,19 +139,24 @@ namespace UserInterface
             Console.Write("Choose numbers: ");
             return Console.ReadLine();
         }
-
-        private static List<ForecastElement> SelectedItemList(List<ForecastElement> forecastList, string userInput)
+        /// <summary>
+        /// Select Url Elements from user inputs
+        /// </summary>
+        /// <param name="urlElements">List of whole Url Elements</param>
+        /// <param name="userInput">User input e.g. 1,3,6</param>
+        /// <returns>Return lint of selected Url Elements</returns>
+        private static List<ForecastUrlElement> SelectUrlElements(List<ForecastUrlElement> urlElements, string userInput)
         {
             string[] userInputs = userInput.Split(',');
 
-            var selectedItemsList = new List<ForecastElement>();
+            var selectedUrlElements = new List<ForecastUrlElement>();
 
             foreach (string val in userInputs)
             {
-                var selectedForecastDay = forecastList.Find(x => x.Id == val);
-                selectedItemsList.Add(selectedForecastDay);
+                var selectedForecastUrlElement = urlElements.Find(x => x.Id == val);
+                selectedUrlElements.Add(selectedForecastUrlElement);
             }
-            return selectedItemsList;
+            return selectedUrlElements;
         }
     }
 }

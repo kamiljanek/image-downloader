@@ -4,18 +4,18 @@
     {
         public const string BaseUrl = "https://flymet.meteopress.cz/";
         public const string UrlExtencion = ".png";
-        public ForecastElement ForecastDay { get; set; }
-        public ForecastElement ForecastType { get; set; }
-        public ForecastElement ForecastHour { get; set; }
-        public WeatherForecast(ForecastElement forecastDay, ForecastElement forecastType, ForecastElement forecastHour)
+        public ForecastUrlElement ForecastRegion { get; set; }
+        public ForecastUrlElement ForecastProduct { get; set; }
+        public ForecastUrlElement ForecastTime { get; set; }
+        public WeatherForecast(ForecastUrlElement forecastRegion, ForecastUrlElement forecastProduct, ForecastUrlElement forecastTime)
         {
-            ForecastDay = forecastDay;
-            ForecastType = forecastType;
-            ForecastHour = forecastHour;
+            ForecastRegion = forecastRegion;
+            ForecastProduct = forecastProduct;
+            ForecastTime = forecastTime;
         }
         public string GenerateUrl()
         {
-            return $"{BaseUrl}{ForecastDay.Code}{ForecastType.Code}{ForecastHour.Code}{UrlExtencion}";
+            return $"{BaseUrl}{ForecastRegion.Code}{ForecastProduct.Code}{ForecastTime.Code}{UrlExtencion}";
         }
 
     }
