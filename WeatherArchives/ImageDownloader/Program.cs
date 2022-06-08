@@ -9,7 +9,7 @@ namespace ImageDownloader
         static void Main(string[] args)
         {
             var fileOperation = new FileOperation();
-            var flymetLinkParts = new FlymetLinkParts();
+            var flymetLinkParts = new FlymetData();
             var emailSender = new EmailSender();
 
             var fileReadedRegion = fileOperation.FileReader<ForecastUrlElement>(Values.regionFilePath);

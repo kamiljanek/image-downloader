@@ -3,12 +3,9 @@
 namespace Flymet
 {
 
-    public class FlymetLinkParts
+    public class FlymetData
     {
-        public static List<string> completeUrls = new List<string>();
-
-
-        public static List<ForecastUrlElement> forecastRegions = new List<ForecastUrlElement>
+        public static readonly List<ForecastUrlElement> forecastRegions = new List<ForecastUrlElement>
             {
                  new ForecastUrlElement("1", "cr/", "Czech Republic today"),
                  new ForecastUrlElement("2","crdl/","Czech Republic tomorrow"),
@@ -19,7 +16,7 @@ namespace Flymet
                  new ForecastUrlElement("7","stev4d/","Europe today")
             };
 
-        public static List<ForecastUrlElement> forecastProducts = new List<ForecastUrlElement>
+        public static readonly List<ForecastUrlElement> forecastProducts = new List<ForecastUrlElement>
             {
                 new ForecastUrlElement("1","oblcH","High clouds"),
                 new ForecastUrlElement("2","oblcM","Medium clouds"),
@@ -60,9 +57,9 @@ namespace Flymet
             }
             return forecastHourList;
         }
-        public List<WeatherForecastItem> GenerateWeatherForecasts(List<ForecastUrlElement> regionElement, List<ForecastUrlElement> productElement, List<ForecastUrlElement> timeElement)
+        public List<WeatherForecast> GenerateWeatherForecasts(List<ForecastUrlElement> regionElement, List<ForecastUrlElement> productElement, List<ForecastUrlElement> timeElement)
         {
-            var selectedForecastElements = new List<WeatherForecastItem>();
+            var selectedForecastElements = new List<WeatherForecast>();
 
             foreach (var RegionInput in regionElement)
             {
@@ -70,14 +67,12 @@ namespace Flymet
                 {
                     foreach (var TimeInput in timeElement)
                     {
-                        var forecastEntity = new WeatherForecastItem(RegionInput, ProductInput, TimeInput);
+                        var forecastEntity = new WeatherForecast(RegionInput, ProductInput, TimeInput);
                         selectedForecastElements.Add(forecastEntity);
                     }
                 }
-
             }
             return selectedForecastElements;
-
         }
     }
 }
