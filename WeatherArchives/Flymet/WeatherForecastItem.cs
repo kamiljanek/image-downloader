@@ -1,13 +1,13 @@
 ﻿namespace Flymet
 {
-    public class WeatherForecast
+    public class WeatherForecastItem
     {
         public const string BaseUrl = "https://flymet.meteopress.cz/";
         public const string UrlExtencion = ".png";
         public ForecastUrlElement ForecastRegion { get; set; }
         public ForecastUrlElement ForecastProduct { get; set; }
         public ForecastUrlElement ForecastTime { get; set; }
-        public WeatherForecast(ForecastUrlElement forecastRegion, ForecastUrlElement forecastProduct, ForecastUrlElement forecastTime)
+        public WeatherForecastItem(ForecastUrlElement forecastRegion, ForecastUrlElement forecastProduct, ForecastUrlElement forecastTime)
         {
             ForecastRegion = forecastRegion;
             ForecastProduct = forecastProduct;

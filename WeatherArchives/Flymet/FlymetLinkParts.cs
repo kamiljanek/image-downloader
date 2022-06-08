@@ -3,12 +3,12 @@
 namespace Flymet
 {
 
-    public static class FlymetData
+    public static class FlymetLinkParts
     {
-        public static List<string> completeURLList = new List<string>();
+        public static List<string> completeUrls = new List<string>();
 
 
-        public static List<ForecastUrlElement> forecastRegionsList = new List<ForecastUrlElement>
+        public static List<ForecastUrlElement> forecastRegions = new List<ForecastUrlElement>
             {
                  new ForecastUrlElement("1", "cr/", "Czech Republic today"),
                  new ForecastUrlElement("2","crdl/","Czech Republic tomorrow"),
@@ -19,7 +19,7 @@ namespace Flymet
                  new ForecastUrlElement("7","stev4d/","Europe today")
             };
 
-        public static List<ForecastUrlElement> forecastProductsList = new List<ForecastUrlElement>
+        public static List<ForecastUrlElement> forecastProducts = new List<ForecastUrlElement>
             {
                 new ForecastUrlElement("1","oblcH","High clouds"),
                 new ForecastUrlElement("2","oblcM","Medium clouds"),
@@ -49,7 +49,7 @@ namespace Flymet
                 new ForecastUrlElement("26","curye","Climb speed 3000m"),
                 new ForecastUrlElement("27","curyf","Climb speed 3500m")
              };
-        public static List<ForecastUrlElement> ForecastTimesList()
+        public static List<ForecastUrlElement> ForecastTimes()
         {
             List<ForecastUrlElement> forecastHourList = new List<ForecastUrlElement>();
 
@@ -60,9 +60,9 @@ namespace Flymet
             }
             return forecastHourList;
         }
-        public static List<WeatherForecast> GenerateDownloadItems(List<ForecastUrlElement> regionElement, List<ForecastUrlElement> productElement, List<ForecastUrlElement> timeElement)
+        public static List<WeatherForecastItem> GenerateWeatherForecasts(List<ForecastUrlElement> regionElement, List<ForecastUrlElement> productElement, List<ForecastUrlElement> timeElement)
         {
-            var selectedForecastElements = new List<WeatherForecast>();
+            var selectedForecastElements = new List<WeatherForecastItem>();
 
             foreach (var RegionInput in regionElement)
             {
@@ -70,7 +70,7 @@ namespace Flymet
                 {
                     foreach (var TimeInput in timeElement)
                     {
-                        var forecastEntity = new WeatherForecast(RegionInput, ProductInput, TimeInput);
+                        var forecastEntity = new WeatherForecastItem(RegionInput, ProductInput, TimeInput);
                         selectedForecastElements.Add(forecastEntity);
                     }
                 }
