@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserInterface
 {
@@ -38,7 +35,7 @@ namespace UserInterface
         /// <param name="fileOperation">FileOperation instance</param>
         /// <param name="filePath">Name or whole path of file to create</param>
         /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
-        public void CaseMenuOptions(FileOperation fileOperation, string filePath,  List<ForecastUrlElement> forecastElements)
+        public void CaseMenuOptions(FileOperation fileOperation, string filePath, List<ForecastUrlElement> forecastElements)
         {
             Title();
             var userInput = DisplayChoosenMenu(forecastElements);
@@ -68,7 +65,7 @@ namespace UserInterface
         private void DisplayChoosenOptions(FileOperation fileOperation)
         {
             try
-            {          
+            {
                 DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory()); //relative folder path
                 FileInfo[] Files = d.GetFiles("UserSelection*"); //Getting all UserSelection files
                 foreach (FileInfo file in Files)
@@ -91,25 +88,12 @@ namespace UserInterface
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// Display choosen menu with options
         /// </summary>
         /// <param name="forecastElements">Whole list of Url Elements</param>
         /// <returns>Return string with choosen elements by user</returns>
-        public static string DisplayChoosenMenu(List<ForecastUrlElement> forecastElements)
+        public string DisplayChoosenMenu(List<ForecastUrlElement> forecastElements)
         {
             foreach (ForecastUrlElement val in forecastElements)
             {
@@ -120,19 +104,19 @@ namespace UserInterface
             Console.Write("Choose numbers: ");
             return Console.ReadLine();
         }
-        private static List<string> GetUserGmailData()
+        private List<string> GetUserGmailData()
         {
+            var gmailInput = new List<string>();
+
             Console.WriteLine("Input your Gmail address:");
             var userEmailAddress = Console.ReadLine();
             Console.WriteLine("Input your Gmail password:");
             var userEmailPassword = Console.ReadLine();
-            UserElement.gmailInput.Add(userEmailAddress);
-            UserElement.gmailInput.Add(userEmailPassword);
+            gmailInput.Add(userEmailAddress);
+            gmailInput.Add(userEmailPassword);
 
-            return UserElement.gmailInput;
+            return gmailInput;
         }
-
-
 
         /// <summary>
         /// Select Url Elements from user inputs
@@ -140,7 +124,7 @@ namespace UserInterface
         /// <param name="urlElements">List of whole Url Elements</param>
         /// <param name="userInput">User input e.g. 1,3,6</param>
         /// <returns>Return lint of selected Url Elements</returns>
-        private static List<ForecastUrlElement> SelectUrlElements(List<ForecastUrlElement> urlElements, string userInput)
+        private List<ForecastUrlElement> SelectUrlElements(List<ForecastUrlElement> urlElements, string userInput)
         {
             string[] userInputs = userInput.Split(',');
 

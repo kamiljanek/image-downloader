@@ -2,7 +2,7 @@
 {
     public class WeatherForecastItem
     {
-        public const string BaseUrl = "https://flymet.meteopress.cz/";
+        public const string BaseUrl = Values.pageAdress;
         public const string UrlExtencion = ".png";
         public ForecastUrlElement ForecastRegion { get; set; }
         public ForecastUrlElement ForecastProduct { get; set; }

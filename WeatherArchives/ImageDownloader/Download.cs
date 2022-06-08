@@ -4,7 +4,7 @@ using System.Net;
 
 namespace ImageDownloader
 {
-    internal static class Download
+    public static class Download
     {
         /// <summary>
         /// Download every item from list

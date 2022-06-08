@@ -2,10 +2,6 @@
 {
     public class ForecastUrlElement
     {
-        public ForecastUrlElement()
-        {
-
-        }
         public ForecastUrlElement(string id, string code, string name)
         {
             Id = id;

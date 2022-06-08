@@ -6,7 +6,7 @@ namespace ImageDownloader
 {
     public class EmailSender
     {
-        public static void Sender(string gmailAddress, string gmailPassword)
+        public void Sender(string gmailAddress, string gmailPassword)
         {
             try
             {

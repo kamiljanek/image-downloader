@@ -3,7 +3,7 @@
 namespace Flymet
 {
 
-    public static class FlymetLinkParts
+    public class FlymetLinkParts
     {
         public static List<string> completeUrls = new List<string>();
 
@@ -60,7 +60,7 @@ namespace Flymet
             }
             return forecastHourList;
         }
-        public static List<WeatherForecastItem> GenerateWeatherForecasts(List<ForecastUrlElement> regionElement, List<ForecastUrlElement> productElement, List<ForecastUrlElement> timeElement)
+        public List<WeatherForecastItem> GenerateWeatherForecasts(List<ForecastUrlElement> regionElement, List<ForecastUrlElement> productElement, List<ForecastUrlElement> timeElement)
         {
             var selectedForecastElements = new List<WeatherForecastItem>();
 
