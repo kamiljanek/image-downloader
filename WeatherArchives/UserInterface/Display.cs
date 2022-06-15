@@ -10,19 +10,19 @@ namespace UserInterface
         public void Title()
         {
             Console.Clear();
-            Console.SetCursorPosition((Console.WindowWidth - Values.pageAdress.Length) / 2, Console.CursorTop); //centering text
-            Console.WriteLine(Values.pageAdress);
+            Console.SetCursorPosition((Console.WindowWidth - ConstantValue.pageAdress.Length) / 2, Console.CursorTop); //centering text
+            Console.WriteLine(ConstantValue.pageAdress);
 
-            Console.SetCursorPosition((Console.WindowWidth - Values.appTitle.Length) / 2, Console.CursorTop); //centering text
-            Console.WriteLine(Values.appTitle);
+            Console.SetCursorPosition((Console.WindowWidth - ConstantValue.appTitle.Length) / 2, Console.CursorTop); //centering text
+            Console.WriteLine(ConstantValue.appTitle);
             Console.WriteLine("");
         }
         public void MainMenu()
         {
             Title();
-            Console.WriteLine($"1 - Forecast localization {Values.MainMenuEnds}");
-            Console.WriteLine($"2 - Forecast type {Values.MainMenuEnds}");
-            Console.WriteLine($"3 - Forecast hour {Values.MainMenuEnds} UTC");
+            Console.WriteLine($"1 - Forecast localization {ConstantValue.MainMenuEnds}");
+            Console.WriteLine($"2 - Forecast type {ConstantValue.MainMenuEnds}");
+            Console.WriteLine($"3 - Forecast hour {ConstantValue.MainMenuEnds} UTC");
             Console.WriteLine($"4 - Email settings...");
             Console.WriteLine($"5 - Check settings...");
             Console.WriteLine($"c - Close application...");

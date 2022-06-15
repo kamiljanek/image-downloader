@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ImageDownloader
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -12,10 +12,14 @@ namespace ImageDownloader
             var weatherForecastFactory = new WeatherForecastFactory();
             var emailSender = new EmailSender();
 
-            var fileReadedRegion = fileOperation.FileReader<ForecastUrlElement>(Values.regionFilePath);
-            var fileReadedProduct = fileOperation.FileReader<ForecastUrlElement>(Values.productFilePath);
-            var fileReadedTime = fileOperation.FileReader<ForecastUrlElement>(Values.timeFilePath);
-            var fileReadedGmail = fileOperation.FileReader<string>(Values.gmailFilePath);
+            
+            
+            var fileReadedRegion = fileOperation.FileReader<ForecastUrlElement>(ConstantValue.regionFilePath);
+            var fileReadedProduct = fileOperation.FileReader<ForecastUrlElement>(ConstantValue.productFilePath);
+            var fileReadedTime = fileOperation.FileReader<ForecastUrlElement>(ConstantValue.timeFilePath);
+            var fileReadedGmail = fileOperation.FileReader<string>(ConstantValue.gmailFilePath);
+
+
 
             var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts(fileReadedRegion, fileReadedProduct, fileReadedTime);
 

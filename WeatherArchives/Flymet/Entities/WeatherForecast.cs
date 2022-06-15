@@ -2,8 +2,6 @@
 {
     public class WeatherForecast
     {
-        public const string BaseUrl = Values.pageAdress;
-        public const string UrlExtencion = ".png";
         public ForecastUrlElement ForecastRegion { get; set; }
         public ForecastUrlElement ForecastProduct { get; set; }
         public ForecastUrlElement ForecastTime { get; set; }
@@ -15,7 +13,7 @@
         }
         public string GenerateUrl()
         {
-            return $"{BaseUrl}{ForecastRegion.Code}{ForecastProduct.Code}{ForecastTime.Code}{UrlExtencion}";
+            return $"{ConstantValue.pageAdress}{ForecastRegion.Code}{ForecastProduct.Code}{ForecastTime.Code}{ConstantValue.UrlExtencion}";
         }
 
     }

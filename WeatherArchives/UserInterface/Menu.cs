@@ -17,19 +17,19 @@ namespace UserInterface
             switch (userInput)
             {
                 case "1":
-                    display.CaseMenuOptions(fileOperation, Values.regionFilePath, FlymetData.forecastRegions);
+                    display.CaseMenuOptions(fileOperation, ConstantValue.regionFilePath, FlymetData.forecastRegions);
                     break;
 
                 case "2":
-                    display.CaseMenuOptions(fileOperation, Values.productFilePath, FlymetData.forecastProducts);
+                    display.CaseMenuOptions(fileOperation, ConstantValue.productFilePath, FlymetData.forecastProducts);
                     break;
 
                 case "3":
-                    display.CaseMenuOptions(fileOperation, Values.timeFilePath, FlymetData.ForecastTimes());
+                    display.CaseMenuOptions(fileOperation, ConstantValue.timeFilePath, FlymetData.ForecastTimes());
                     break;
 
                 case "4":
-                    display.CaseMenuGmail(fileOperation, Values.gmailFilePath);
+                    display.CaseMenuGmail(fileOperation, ConstantValue.gmailFilePath);
                     break;
 
                 case "5":
