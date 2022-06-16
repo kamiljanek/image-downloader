@@ -15,7 +15,7 @@ namespace ImageDownloader
             foreach (var item in selectedForecastElements)
             {
                 string URL = item.GenerateUrl();
-                string fileName = $"{item.ForecastRegion.Name} - {item.ForecastProduct.Name} - {item.ForecastTime.Name}{WeatherForecast.UrlExtencion}";
+                string fileName = $"{item.ForecastRegion.Name}-{item.ForecastProduct.Name}-{item.ForecastTime.Name}{ConstantValue.UrlExtencion}";
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile(URL, fileName);
             }
