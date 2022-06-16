@@ -1,4 +1,11 @@
 # Forecast Archive
+This is console application to make your own forecast archive form flymet.meteopress.cz
+App will download forecast products that you choose and send them to your Gmail.
+
+Below you will see instruction how to use it.
+
+Bon appetit!
+
 ## Start:
 #### 1. To start creating your weather archives from "http://flymet.meteopress.cz/" first you have to run "UserInterface.exe"
 #### 2. Set up your settings:
