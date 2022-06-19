@@ -6,9 +6,9 @@ namespace Flymet
 {
     public class FlymetForecastFactory
     {
-        private readonly FileOperation _fileOperation;
+        private readonly IFileOperation _fileOperation;
 
-        public FlymetForecastFactory(FileOperation fileOperation)
+        public FlymetForecastFactory(IFileOperation fileOperation)
         {
             _fileOperation = fileOperation;
         }

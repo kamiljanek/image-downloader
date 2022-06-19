@@ -6,34 +6,38 @@ namespace UserInterface
 {
     public class Menu
     {
+        private readonly IDisplay _display;
+
+        public Menu(IDisplay display)
+        {
+            _display = display;
+        }
+
         public void UserInterface()
         {
-            var display = new Display();
-            var fileOperation = new FileOperation();
-
-            display.MainMenu();
+            _display.MainMenu();
 
             string userInput = Console.ReadLine();
             switch (userInput)
             {
                 case "1":
-                    display.CaseMenuOptions(fileOperation, FlymetConstValue.RegionFilePath, FlymetData.forecastRegions);
+                    _display.CaseMenuOptions(FlymetConstValue.RegionFilePath, FlymetData.forecastRegions);
                     break;
 
                 case "2":
-                    display.CaseMenuOptions(fileOperation, FlymetConstValue.ProductFilePath, FlymetData.forecastProducts);
+                    _display.CaseMenuOptions(FlymetConstValue.ProductFilePath, FlymetData.forecastProducts);
                     break;
 
                 case "3":
-                    display.CaseMenuOptions(fileOperation, FlymetConstValue.TimeFilePath, FlymetData.ForecastTimes());
+                    _display.CaseMenuOptions(FlymetConstValue.TimeFilePath, FlymetData.ForecastTimes());
                     break;
 
                 case "4":
-                    display.CaseMenuGmail(fileOperation, ConstantValue.GmailFilePath);
+                    _display.CaseMenuGmail(ConstantValue.GmailFilePath);
                     break;
 
                 case "5":
-                    display.CaseMenuChoosenOptions(fileOperation);
+                    _display.CaseMenuChoosenOptions();
                     break;
 
                 case "c":

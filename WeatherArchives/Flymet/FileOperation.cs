@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Flymet
 {
-    public class FileOperation
+    public class FileOperation : IFileOperation
     {
         /// <summary>
         /// Create *.json file with settings that user choose

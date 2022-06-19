@@ -6,8 +6,15 @@ using System.IO;
 
 namespace UserInterface
 {
-    public class Display
+    public class Display : IDisplay
     {
+        private readonly IFileOperation _fileOperation;
+
+        public Display(IFileOperation fileOperation)
+        {
+            _fileOperation = fileOperation;
+        }
+
         public void Title()
         {
             Console.Clear();
@@ -36,34 +43,34 @@ namespace UserInterface
         /// <param name="fileOperation">FileOperation instance</param>
         /// <param name="filePath">Name or whole path of file to create</param>
         /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
-        public void CaseMenuOptions(FileOperation fileOperation, string filePath, List<FlymetForecastUrlElement> forecastElements)
+        public void CaseMenuOptions(string filePath, List<FlymetForecastUrlElement> forecastElements)
         {
             Title();
             var userInput = DisplayChoosenMenu(forecastElements);
             var selectedItems = SelectUrlElements(forecastElements, userInput);
-            fileOperation.FileGenerator(filePath, selectedItems);
+            _fileOperation.FileGenerator(filePath, selectedItems);
         }
         /// <summary>
         /// Display menu to input login and password of Gmail
         /// </summary>
         /// <param name="fileOperation">File Operation</param>
         /// <param name="filePath">Name or whole path of file to create</param>
-        public void CaseMenuGmail(FileOperation fileOperation, string filePath)
+        public void CaseMenuGmail(string filePath)
         {
             Title();
             var gmailData = GetUserGmailData();
-            fileOperation.FileGenerator(filePath, gmailData);
+            _fileOperation.FileGenerator(filePath, gmailData);
         }
-        public void CaseMenuChoosenOptions(FileOperation fileOperation)
+        public void CaseMenuChoosenOptions()
         {
             Title();
-            DisplayChoosenOptions(fileOperation);
+            DisplayChoosenOptions();
             Console.WriteLine("");
             Console.Write("To continue press ENTER...");
             Console.ReadKey();
         }
 
-        private void DisplayChoosenOptions(FileOperation fileOperation)
+        private void DisplayChoosenOptions()
         {
             try
             {
@@ -74,7 +81,7 @@ namespace UserInterface
                     Console.WriteLine("");
                     var title = file.Name.Replace(".json", string.Empty).Replace("UserSelection_", string.Empty).ToUpper();
                     Console.WriteLine(title);
-                    var elements = fileOperation.FileReader<FlymetForecastUrlElement>(file.FullName);
+                    var elements = _fileOperation.FileReader<FlymetForecastUrlElement>(file.FullName);
                     foreach (var item in elements)
                     {
                         Console.Write($"{item.Name}, ");

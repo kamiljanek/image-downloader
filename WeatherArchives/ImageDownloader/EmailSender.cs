@@ -10,9 +10,9 @@ namespace ImageDownloader
 {
     public class EmailSender
     {
-        private readonly FileOperation _fileOperation;
+        private readonly IFileOperation _fileOperation;
 
-        public EmailSender(FileOperation fileOperation)
+        public EmailSender(IFileOperation fileOperation)
         {
             _fileOperation = fileOperation;
         }
