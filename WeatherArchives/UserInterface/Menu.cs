@@ -4,7 +4,7 @@ using System;
 
 namespace UserInterface
 {
-    public class Menu
+    public class Menu : IMenu
     {
         private readonly IDisplay _display;
 

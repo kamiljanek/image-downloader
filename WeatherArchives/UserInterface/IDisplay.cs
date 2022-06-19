@@ -10,7 +10,5 @@ namespace UserInterface
         void CaseMenuGmail(string filePath);
         void CaseMenuChoosenOptions();
 
-
-
     }
 }

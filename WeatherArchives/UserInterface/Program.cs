@@ -12,14 +12,14 @@ namespace UserInterface
             ConfigureServices(services);
             ServiceProvider = services.BuildServiceProvider();
 
-            var menu = ServiceProvider.GetService<Menu>();
+            var menu = ServiceProvider.GetService<IMenu>();
             menu.UserInterface();
         }
         public static ServiceProvider ServiceProvider { get; private set; }
         private static void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddSingleton<Menu>()
+                .AddSingleton<IMenu, Menu>()
                 .AddSingleton<IFileOperation, FileOperation>()
                 .AddSingleton<IDisplay, Display>();
         }

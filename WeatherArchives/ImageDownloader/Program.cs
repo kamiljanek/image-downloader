@@ -19,7 +19,6 @@ namespace ImageDownloader
             var emailSender = ServiceProvider.GetService<EmailSender>();
 
             var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts();
-            //var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts(fileOperation.FileReader<ForecastUrlElement>);
 
             image.AddElement(selectedForecastElements);
             image.AddElement(synopticForecast);
@@ -32,11 +31,11 @@ namespace ImageDownloader
         private static void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddSingleton<FileOperation>()
                 .AddSingleton<FlymetForecastFactory>()
                 .AddSingleton<SynopticForecastFactory>()
+                .AddSingleton<DownloadElement>()
                 .AddSingleton<EmailSender>()
-                .AddSingleton<DownloadElement>();
+                .AddSingleton<IFileOperation, FileOperation>();
         }
 
 
