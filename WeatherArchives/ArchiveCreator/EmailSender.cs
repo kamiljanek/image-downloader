@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 
-namespace ImageDownloader
+namespace ArchiveCreator
 {
     public class EmailSender
     {

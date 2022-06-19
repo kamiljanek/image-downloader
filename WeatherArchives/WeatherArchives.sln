@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32120.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "UserInterface\UserInterface.csproj", "{43E5AA62-48F1-4BAD-89AD-6793EEF871CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageDownloader", "ImageDownloader\ImageDownloader.csproj", "{CF98E91E-18F6-4951-9CD3-3453868384A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveCreator", "ArchiveCreator\ArchiveCreator.csproj", "{CF98E91E-18F6-4951-9CD3-3453868384A6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flymet", "Flymet\Flymet.csproj", "{1B983F55-741A-4230-89A2-85D5CEAE824E}"
 	ProjectSection(ProjectDependencies) = postProject

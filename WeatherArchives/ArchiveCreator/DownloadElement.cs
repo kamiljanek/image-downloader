@@ -1,7 +1,7 @@
 ﻿using Model;
 using System.Collections.Generic;
 
-namespace ImageDownloader
+namespace ArchiveCreator
 {
     public class DownloadElement
     {

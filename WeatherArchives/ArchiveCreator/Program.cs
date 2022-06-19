@@ -1,13 +1,13 @@
 ﻿using Flymet;
-using SynopticMap;
-using Model;
 using Microsoft.Extensions.DependencyInjection;
+using SynopticMap;
+using System.Threading.Tasks;
 
-namespace ImageDownloader
+namespace ArchiveCreator
 {
     public class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var services = new ServiceCollection();
             ConfigureServices(services);
@@ -22,7 +22,7 @@ namespace ImageDownloader
 
             image.AddElement(selectedForecastElements);
             image.AddElement(synopticForecast);
-            image.Elements.Download();
+            await image.Elements.Download();
 
             emailSender.SendEmail(selectedForecastElements[0]);
             emailSender.SendEmail(synopticForecast);
@@ -39,9 +39,9 @@ namespace ImageDownloader
         }
 
 
-      
 
-       
+
+
 
     }
 }
