@@ -1,14 +1,14 @@
-﻿using Helper;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 
 namespace Flymet
 {
-    public class WeatherForecastFactory
+    public class FlymetForecastFactory
     {
         private readonly FileOperation _fileOperation;
 
-        public WeatherForecastFactory(FileOperation fileOperation)
+        public FlymetForecastFactory(FileOperation fileOperation)
         {
             _fileOperation = fileOperation;
         }
@@ -16,9 +16,9 @@ namespace Flymet
     
         public List<IGenerate> CreateWeatherForecasts()
         {
-            var regionElement = _fileOperation.FileReader<ForecastUrlElement>(ConstantValue.regionFilePath);
-            var productElement = _fileOperation.FileReader<ForecastUrlElement>(ConstantValue.productFilePath);
-            var timeElement = _fileOperation.FileReader<ForecastUrlElement>(ConstantValue.timeFilePath);
+            var regionElement = _fileOperation.FileReader<FlymetForecastUrlElement>(FlymetConstValue.RegionFilePath);
+            var productElement = _fileOperation.FileReader<FlymetForecastUrlElement>(FlymetConstValue.ProductFilePath);
+            var timeElement = _fileOperation.FileReader<FlymetForecastUrlElement>(FlymetConstValue.TimeFilePath);
 
             var selectedForecastElements = new List<IGenerate>();
 
@@ -28,7 +28,7 @@ namespace Flymet
                 {
                     foreach (var TimeInput in timeElement)
                     {
-                        var forecastEntity = new WeatherForecast(RegionInput, ProductInput, TimeInput);
+                        var forecastEntity = new FlymetForecast(RegionInput, ProductInput, TimeInput);
                         selectedForecastElements.Add(forecastEntity);
                     }
                 }

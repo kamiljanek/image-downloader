@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Helper
+﻿namespace Model
 {
     public interface IGenerate
     {

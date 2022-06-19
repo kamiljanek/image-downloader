@@ -1,24 +1,24 @@
-﻿using Helper;
+﻿using Model;
 
 namespace SynopticMap
 {
     public class SynopticForecastFactory : IGenerate
     {
+        private readonly string _fileName = @"synoptic_map.gif";
+        private readonly string _url = @"https://www.chmi.cz/files/portal/docs/meteo/om/evropa/preba/preba.gif";
         private readonly string _name = "Synoptic_map";
         public string Name => _name;
 
-        private const string url = @"https://www.chmi.cz/files/portal/docs/meteo/om/evropa/preba/preba.gif";
-        private const string fileName = @"synoptic_map.gif";
 
 
         public string GenerateFileName()
         {
-            return fileName;
+            return _fileName;
         }
 
         public string GenerateUrl()
         {
-            return url;
+            return _url;
         }
     }
 }

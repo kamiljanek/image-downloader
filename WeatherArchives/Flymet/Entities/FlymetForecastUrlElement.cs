@@ -1,8 +1,8 @@
 ﻿namespace Flymet
 {
-    public class ForecastUrlElement
+    public class FlymetForecastUrlElement
     {
-        public ForecastUrlElement(string id, string code, string name)
+        public FlymetForecastUrlElement(string id, string code, string name)
         {
             Id = id;
             Code = code;

@@ -1,6 +1,6 @@
 ﻿using Flymet;
 using SynopticMap;
-using Helper;
+using Model;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ImageDownloader
@@ -13,30 +13,30 @@ namespace ImageDownloader
             ConfigureServices(services);
             ServiceProvider = services.BuildServiceProvider();
 
-            var weatherForecastFactory = ServiceProvider.GetService<WeatherForecastFactory>();
+            var weatherForecastFactory = ServiceProvider.GetService<FlymetForecastFactory>();
             var synopticForecast = ServiceProvider.GetService<SynopticForecastFactory>();
-            var image = ServiceProvider.GetService<Forecast>();
+            var image = ServiceProvider.GetService<DownloadElement>();
             var emailSender = ServiceProvider.GetService<EmailSender>();
 
             var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts();
             //var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts(fileOperation.FileReader<ForecastUrlElement>);
 
-            image.AddToImages(selectedForecastElements);
-            image.AddToImages(synopticForecast);
-            image.images.Download();
+            image.AddElement(selectedForecastElements);
+            image.AddElement(synopticForecast);
+            image.Elements.Download();
 
-            emailSender.Sender(selectedForecastElements[0]);
-            emailSender.Sender(synopticForecast);
+            emailSender.SendEmail(selectedForecastElements[0]);
+            emailSender.SendEmail(synopticForecast);
         }
         public static ServiceProvider ServiceProvider { get; private set; }
         private static void ConfigureServices(IServiceCollection services)
         {
             services
                 .AddSingleton<FileOperation>()
-                .AddSingleton<WeatherForecastFactory>()
+                .AddSingleton<FlymetForecastFactory>()
                 .AddSingleton<SynopticForecastFactory>()
                 .AddSingleton<EmailSender>()
-                .AddSingleton<Forecast>();
+                .AddSingleton<DownloadElement>();
         }
 
 

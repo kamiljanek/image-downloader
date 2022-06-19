@@ -1,4 +1,5 @@
 ﻿using Flymet;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,11 +11,11 @@ namespace UserInterface
         public void Title()
         {
             Console.Clear();
-            Console.SetCursorPosition((Console.WindowWidth - ConstantValue.pageAdress.Length) / 2, Console.CursorTop); //centering text
-            Console.WriteLine(ConstantValue.pageAdress);
+            Console.SetCursorPosition((Console.WindowWidth - FlymetConstValue.PageAdress.Length) / 2, Console.CursorTop); //centering text
+            Console.WriteLine(FlymetConstValue.PageAdress);
 
-            Console.SetCursorPosition((Console.WindowWidth - ConstantValue.appTitle.Length) / 2, Console.CursorTop); //centering text
-            Console.WriteLine(ConstantValue.appTitle);
+            Console.SetCursorPosition((Console.WindowWidth - ConstantValue.AppTitle.Length) / 2, Console.CursorTop); //centering text
+            Console.WriteLine(ConstantValue.AppTitle);
             Console.WriteLine("");
         }
         public void MainMenu()
@@ -35,7 +36,7 @@ namespace UserInterface
         /// <param name="fileOperation">FileOperation instance</param>
         /// <param name="filePath">Name or whole path of file to create</param>
         /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
-        public void CaseMenuOptions(FileOperation fileOperation, string filePath, List<ForecastUrlElement> forecastElements)
+        public void CaseMenuOptions(FileOperation fileOperation, string filePath, List<FlymetForecastUrlElement> forecastElements)
         {
             Title();
             var userInput = DisplayChoosenMenu(forecastElements);
@@ -73,7 +74,7 @@ namespace UserInterface
                     Console.WriteLine("");
                     var title = file.Name.Replace(".json", string.Empty).Replace("UserSelection_", string.Empty).ToUpper();
                     Console.WriteLine(title);
-                    var elements = fileOperation.FileReader<ForecastUrlElement>(file.FullName);
+                    var elements = fileOperation.FileReader<FlymetForecastUrlElement>(file.FullName);
                     foreach (var item in elements)
                     {
                         Console.Write($"{item.Name}, ");
@@ -93,9 +94,9 @@ namespace UserInterface
         /// </summary>
         /// <param name="forecastElements">Whole list of Url Elements</param>
         /// <returns>Return string with choosen elements by user</returns>
-        public string DisplayChoosenMenu(List<ForecastUrlElement> forecastElements)
+        public string DisplayChoosenMenu(List<FlymetForecastUrlElement> forecastElements)
         {
-            foreach (ForecastUrlElement val in forecastElements)
+            foreach (FlymetForecastUrlElement val in forecastElements)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
             }
@@ -124,11 +125,11 @@ namespace UserInterface
         /// <param name="urlElements">List of whole Url Elements</param>
         /// <param name="userInput">User input e.g. 1,3,6</param>
         /// <returns>Return lint of selected Url Elements</returns>
-        private List<ForecastUrlElement> SelectUrlElements(List<ForecastUrlElement> urlElements, string userInput)
+        private List<FlymetForecastUrlElement> SelectUrlElements(List<FlymetForecastUrlElement> urlElements, string userInput)
         {
             string[] userInputs = userInput.Split(',');
 
-            var selectedUrlElements = new List<ForecastUrlElement>();
+            var selectedUrlElements = new List<FlymetForecastUrlElement>();
 
             foreach (string val in userInputs)
             {

@@ -1,5 +1,5 @@
 ﻿using Flymet;
-using Helper;
+using Model;
 using System;
 using System.IO;
 using System.Linq;
@@ -16,9 +16,9 @@ namespace ImageDownloader
         {
             _fileOperation = fileOperation;
         }
-        public void Sender(IGenerate forecastPage)
+        public void SendEmail(IGenerate forecastPage)
         {
-            var gmailFileReaded = _fileOperation.FileReader<string>(ConstantValue.gmailFilePath);
+            var gmailFileReaded = _fileOperation.FileReader<string>(ConstantValue.GmailFilePath);
             var gmailAddress = gmailFileReaded[0];
             var emailPassword = gmailFileReaded[1];
             var extencion = forecastPage.GenerateUrl().Split('.').Last();

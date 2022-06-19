@@ -10,12 +10,12 @@ namespace ImageDownloader
         /// Download every item from list
         /// </summary>
         /// <param name="selectedForecastElements">List of complete items todownload</param>
-        public static void Download(this List<WeatherForecast> selectedForecastElements)
+        public static void Download(this List<FlymetForecast> selectedForecastElements)
         {
             foreach (var item in selectedForecastElements)
             {
                 string Url = item.GenerateUrl();
-                string fileName = $"{item.ForecastRegion.Name}-{item.ForecastProduct.Name}-{item.ForecastTime.Name}{ConstantValue.UrlExtencion}";
+                string fileName = $"{item.ForecastRegion.Name}-{item.ForecastProduct.Name}-{item.ForecastTime.Name}{FlymetConstValue.UrlExtencion}";
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile(Url, fileName);
             }

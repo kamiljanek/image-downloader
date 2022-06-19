@@ -12,6 +12,7 @@
 
   <ItemGroup>
 	  <ProjectReference Include="..\Flymet\Flymet.csproj" />
+	  <ProjectReference Include="..\Model\Model.csproj" />
 	  <ProjectReference Include="..\SynopticMap\SynopticMap.csproj" />
   </ItemGroup>
 
