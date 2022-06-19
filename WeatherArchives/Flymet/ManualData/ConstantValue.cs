@@ -12,4 +12,8 @@
         public const string UrlExtencion = ".png";
 
     }
+    public enum ConstValue
+    {
+
+    }
 }

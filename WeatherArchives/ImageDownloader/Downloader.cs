@@ -4,20 +4,28 @@ using System.Net;
 
 namespace ImageDownloader
 {
-    public static class Download
+    public static class Downloader
     {
         /// <summary>
         /// Download every item from list
         /// </summary>
         /// <param name="selectedForecastElements">List of complete items todownload</param>
-        public static void Downloader(this List<WeatherForecast> selectedForecastElements)
+        public static void Download(this List<WeatherForecast> selectedForecastElements)
         {
             foreach (var item in selectedForecastElements)
             {
-                string URL = item.GenerateUrl();
+                string Url = item.GenerateUrl();
                 string fileName = $"{item.ForecastRegion.Name}-{item.ForecastProduct.Name}-{item.ForecastTime.Name}{ConstantValue.UrlExtencion}";
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(URL, fileName);
+                webClient.DownloadFile(Url, fileName);
+            }
+        }
+        public static void Download(this Dictionary<string, string> images)
+        {
+            foreach (var item in images)
+            {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile(item.Key, item.Value);
             }
         }
     }

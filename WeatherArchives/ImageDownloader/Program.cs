@@ -1,4 +1,7 @@
 ﻿using Flymet;
+using SynopticMap;
+using Helper;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ImageDownloader
 {
@@ -6,31 +9,40 @@ namespace ImageDownloader
     {
         static void Main(string[] args)
         {
-            var fileOperation = new FileOperation();
-            var frWeather = new FileReaderDelegate<ForecastUrlElement>(fileOperation.FileReader<ForecastUrlElement>);
-            var frGmail = new FileReaderDelegate<string>(fileOperation.FileReader<string>);
-            var weatherForecastFactory = new WeatherForecastFactory();
-            var emailSender = new EmailSender();
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            ServiceProvider = services.BuildServiceProvider();
 
+            var weatherForecastFactory = ServiceProvider.GetService<WeatherForecastFactory>();
+            var synopticForecast = ServiceProvider.GetService<SynopticForecastFactory>();
+            var image = ServiceProvider.GetService<Forecast>();
+            var emailSender = ServiceProvider.GetService<EmailSender>();
 
-            //var fileReadedRegion = fileOperation.FileReader<ForecastUrlElement>(ConstantValue.regionFilePath);
-            //var fileReadedProduct = fileOperation.FileReader<ForecastUrlElement>(ConstantValue.productFilePath);
-            //var fileReadedTime = fileOperation.FileReader<ForecastUrlElement>(ConstantValue.timeFilePath);
-            //var fileReadedGmail = fileOperation.FileReader<string>(ConstantValue.gmailFilePath);
+            var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts();
+            //var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts(fileOperation.FileReader<ForecastUrlElement>);
 
+            image.AddToImages(selectedForecastElements);
+            image.AddToImages(synopticForecast);
+            image.images.Download();
 
-            //var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts(fileReadedRegion, fileReadedProduct, fileReadedTime);
-            var selectedForecastElements = weatherForecastFactory.CreateWeatherForecasts(
-                frWeather(ConstantValue.regionFilePath),
-                frWeather(ConstantValue.productFilePath),
-                frWeather(ConstantValue.timeFilePath));
-
-            selectedForecastElements.Downloader();
-
-            //emailSender.Sender(fileReadedGmail[0], fileReadedGmail[1]);
-            emailSender.Sender(frGmail(ConstantValue.gmailFilePath)[0], frGmail(ConstantValue.gmailFilePath)[1]);
-
+            emailSender.Sender(selectedForecastElements[0]);
+            emailSender.Sender(synopticForecast);
         }
+        public static ServiceProvider ServiceProvider { get; private set; }
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services
+                .AddSingleton<FileOperation>()
+                .AddSingleton<WeatherForecastFactory>()
+                .AddSingleton<SynopticForecastFactory>()
+                .AddSingleton<EmailSender>()
+                .AddSingleton<Forecast>();
+        }
+
+
+      
+
+       
 
     }
 }
