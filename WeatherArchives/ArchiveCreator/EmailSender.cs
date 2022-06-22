@@ -18,7 +18,7 @@ namespace ArchiveCreator
         public void SendEmail(IGenerate forecastPage)
         {
 
-            var gmail = _fileOperation.FileGmailReader<UserGmail>(ConstantValue.GmailFilePath);
+            var gmail = _fileOperation.FileReader<UserGmail>(ConstantValue.GmailFilePath);
             var extencion = forecastPage.GenerateUrl().Split('.').Last();
             try
             {

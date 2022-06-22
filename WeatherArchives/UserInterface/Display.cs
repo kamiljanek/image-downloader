@@ -84,7 +84,7 @@ namespace UserInterface
                     Console.WriteLine("");
                     var title = file.Name.Replace(".json", string.Empty).Replace("UserSelection_", string.Empty).ToUpper();
                     Console.WriteLine(title);
-                    var elements = _fileOperation.FileReader<FlymetUrlElement>(file.FullName);
+                    var elements = _fileOperation.FileReader<List<FlymetUrlElement>>(file.FullName);
                     foreach (var item in elements)
                     {
                         Console.Write($"{item.Name}, ");

@@ -18,9 +18,9 @@ namespace Flymet
     
         public List<IGenerate> CreateWeatherForecasts()
         {
-            var regionElement = _fileOperation.FileReader<FlymetUrlElement>(FlymetConstValue.RegionFilePath);
-            var productElement = _fileOperation.FileReader<FlymetUrlElement>(FlymetConstValue.ProductFilePath);
-            var timeElement = _fileOperation.FileReader<FlymetUrlElement>(FlymetConstValue.TimeFilePath);
+            var regionElement = _fileOperation.FileReader<List<FlymetUrlElement>>(FlymetConstValue.RegionFilePath);
+            var productElement = _fileOperation.FileReader<List<FlymetUrlElement>>(FlymetConstValue.ProductFilePath);
+            var timeElement = _fileOperation.FileReader<List<FlymetUrlElement>>(FlymetConstValue.TimeFilePath);
 
             var selectedForecastElements = new List<IGenerate>();
 
