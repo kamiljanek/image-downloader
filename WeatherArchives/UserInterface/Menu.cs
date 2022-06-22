@@ -1,4 +1,4 @@
-﻿using Flymet;
+﻿using Flymet.ManualData;
 using Model;
 using System;
 
@@ -33,7 +33,7 @@ namespace UserInterface
                     break;
 
                 case "4":
-                    _display.CaseMenuGmail(ConstantValue.GmailFilePath);
+                    _display.CaseMenuGmail();
                     break;
 
                 case "5":

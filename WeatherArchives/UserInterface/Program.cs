@@ -1,4 +1,4 @@
-﻿using Flymet;
+﻿using Model;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace UserInterface
@@ -21,6 +21,7 @@ namespace UserInterface
             services
                 .AddSingleton<IMenu, Menu>()
                 .AddSingleton<IFileOperation, FileOperation>()
+                .AddSingleton<IUserGmail, UserGmail>()
                 .AddSingleton<IDisplay, Display>();
         }
     }

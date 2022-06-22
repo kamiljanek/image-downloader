@@ -1,5 +1,4 @@
-﻿using Flymet;
-using Model;
+﻿using Model;
 using System;
 using System.IO;
 using System.Linq;
@@ -18,19 +17,18 @@ namespace ArchiveCreator
         }
         public void SendEmail(IGenerate forecastPage)
         {
-            var gmailFileReaded = _fileOperation.FileReader<string>(ConstantValue.GmailFilePath);
-            var gmailAddress = gmailFileReaded[0];
-            var emailPassword = gmailFileReaded[1];
+
+            var gmail = _fileOperation.FileGmailReader<UserGmail>(ConstantValue.GmailFilePath);
             var extencion = forecastPage.GenerateUrl().Split('.').Last();
             try
             {
                 SmtpClient mailServer = new SmtpClient("smtp.gmail.com", 587);
                 mailServer.EnableSsl = true;
 
-                mailServer.Credentials = new NetworkCredential(gmailAddress, emailPassword);
+                mailServer.Credentials = new NetworkCredential(gmail.GmailAddress, gmail.GmailPassword);
 
-                string from = gmailAddress;
-                string to = gmailAddress;
+                string from = gmail.GmailAddress;
+                string to = from;
                 MailMessage msg = new MailMessage(from, to);
                 msg.Subject = forecastPage.Name;
                 msg.Body = "Have a nice day";

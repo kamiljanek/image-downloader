@@ -1,4 +1,4 @@
-﻿namespace Flymet
+﻿namespace Flymet.ManualData
 {
     public static class FlymetConstValue
     {

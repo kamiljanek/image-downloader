@@ -1,4 +1,6 @@
-﻿using Model;
+﻿using Flymet.Entities;
+using Flymet.ManualData;
+using Model;
 using System;
 using System.Collections.Generic;
 
@@ -16,9 +18,9 @@ namespace Flymet
     
         public List<IGenerate> CreateWeatherForecasts()
         {
-            var regionElement = _fileOperation.FileReader<FlymetForecastUrlElement>(FlymetConstValue.RegionFilePath);
-            var productElement = _fileOperation.FileReader<FlymetForecastUrlElement>(FlymetConstValue.ProductFilePath);
-            var timeElement = _fileOperation.FileReader<FlymetForecastUrlElement>(FlymetConstValue.TimeFilePath);
+            var regionElement = _fileOperation.FileReader<FlymetUrlElement>(FlymetConstValue.RegionFilePath);
+            var productElement = _fileOperation.FileReader<FlymetUrlElement>(FlymetConstValue.ProductFilePath);
+            var timeElement = _fileOperation.FileReader<FlymetUrlElement>(FlymetConstValue.TimeFilePath);
 
             var selectedForecastElements = new List<IGenerate>();
 

@@ -1,4 +1,5 @@
-﻿using Flymet;
+﻿using Flymet.Entities;
+using Flymet.ManualData;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,12 @@ namespace UserInterface
     public class Display : IDisplay
     {
         private readonly IFileOperation _fileOperation;
+        private readonly IUserGmail _userGmail;
 
-        public Display(IFileOperation fileOperation)
+        public Display(IFileOperation fileOperation, IUserGmail userGmail)
         {
             _fileOperation = fileOperation;
+            _userGmail = userGmail;
         }
 
         public void Title()
@@ -42,8 +45,8 @@ namespace UserInterface
         /// </summary>
         /// <param name="fileOperation">FileOperation instance</param>
         /// <param name="filePath">Name or whole path of file to create</param>
-        /// <param name="forecastElements">List of all Url Elements to display in specific case</param>
-        public void CaseMenuOptions(string filePath, List<FlymetForecastUrlElement> forecastElements)
+        /// <param name="forecastElements">List of all URL Elements to display in specific case</param>
+        public void CaseMenuOptions(string filePath, List<FlymetUrlElement> forecastElements)
         {
             Title();
             var userInput = DisplayChoosenMenu(forecastElements);
@@ -55,11 +58,11 @@ namespace UserInterface
         /// </summary>
         /// <param name="fileOperation">File Operation</param>
         /// <param name="filePath">Name or whole path of file to create</param>
-        public void CaseMenuGmail(string filePath)
+        public void CaseMenuGmail()
         {
             Title();
-            var gmailData = GetUserGmailData();
-            _fileOperation.FileGenerator(filePath, gmailData);
+            var gmailData = SetUserGmailData();
+            _fileOperation.FileGenerator(ConstantValue.GmailFilePath, gmailData);
         }
         public void CaseMenuChoosenOptions()
         {
@@ -81,7 +84,7 @@ namespace UserInterface
                     Console.WriteLine("");
                     var title = file.Name.Replace(".json", string.Empty).Replace("UserSelection_", string.Empty).ToUpper();
                     Console.WriteLine(title);
-                    var elements = _fileOperation.FileReader<FlymetForecastUrlElement>(file.FullName);
+                    var elements = _fileOperation.FileReader<FlymetUrlElement>(file.FullName);
                     foreach (var item in elements)
                     {
                         Console.Write($"{item.Name}, ");
@@ -93,17 +96,16 @@ namespace UserInterface
             {
                 Console.WriteLine("Cannot find file. Error : " + ex);
             }
-
         }
 
         /// <summary>
-        /// Display choosen menu with options
+        /// Display chosen menu with options
         /// </summary>
-        /// <param name="forecastElements">Whole list of Url Elements</param>
-        /// <returns>Return string with choosen elements by user</returns>
-        public string DisplayChoosenMenu(List<FlymetForecastUrlElement> forecastElements)
+        /// <param name="flymetUrlElements">Whole list of URL Elements</param>
+        /// <returns>Return string with chosen elements by user</returns>
+        public string DisplayChoosenMenu(List<FlymetUrlElement> flymetUrlElements)
         {
-            foreach (FlymetForecastUrlElement val in forecastElements)
+            foreach (FlymetUrlElement val in flymetUrlElements)
             {
                 Console.WriteLine($"{val.Id} - {val.Name}");
             }
@@ -112,31 +114,37 @@ namespace UserInterface
             Console.Write("Choose numbers: ");
             return Console.ReadLine();
         }
-        private List<string> GetUserGmailData()
+        private IUserGmail SetUserGmailData()
         {
-            var gmailInput = new List<string>();
-
             Console.WriteLine("Input your Gmail address:");
-            var userEmailAddress = Console.ReadLine();
+            _userGmail.GmailAddress = Console.ReadLine();
+            while (_userGmail.GmailAddress == null)
+            {
+                Console.WriteLine("Wrong address, try again:");
+                _userGmail.GmailAddress = Console.ReadLine();
+            }
+
             Console.WriteLine("Input your Gmail password:");
-            var userEmailPassword = Console.ReadLine();
-            gmailInput.Add(userEmailAddress);
-            gmailInput.Add(userEmailPassword);
+            _userGmail.GmailPassword = Console.ReadLine();
+            while (_userGmail.GmailPassword == null)
+            {
+                Console.WriteLine("Wrong password, try again:");
+                _userGmail.GmailPassword = Console.ReadLine();
+            }
 
-            return gmailInput;
+            return _userGmail;
         }
-
         /// <summary>
-        /// Select Url Elements from user inputs
+        /// Select URL Elements from user inputs
         /// </summary>
-        /// <param name="urlElements">List of whole Url Elements</param>
+        /// <param name="urlElements">List of whole URL Elements</param>
         /// <param name="userInput">User input e.g. 1,3,6</param>
-        /// <returns>Return lint of selected Url Elements</returns>
-        private List<FlymetForecastUrlElement> SelectUrlElements(List<FlymetForecastUrlElement> urlElements, string userInput)
+        /// <returns>Return list of selected URL Elements</returns>
+        private List<FlymetUrlElement> SelectUrlElements(List<FlymetUrlElement> urlElements, string userInput)
         {
             string[] userInputs = userInput.Split(',');
 
-            var selectedUrlElements = new List<FlymetForecastUrlElement>();
+            var selectedUrlElements = new List<FlymetUrlElement>();
 
             foreach (string val in userInputs)
             {
