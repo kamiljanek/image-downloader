@@ -14,7 +14,6 @@ namespace Flymet
         {
             _fileOperation = fileOperation;
         }
-
     
         public List<IGenerate> CreateWeatherForecasts()
         {

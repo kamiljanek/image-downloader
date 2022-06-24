@@ -38,11 +38,5 @@ namespace ArchiveCreator
                 .AddSingleton<EmailSender>()
                 .AddSingleton<IFileOperation, FileOperation>();
         }
-
-
-
-
-
-
     }
 }
