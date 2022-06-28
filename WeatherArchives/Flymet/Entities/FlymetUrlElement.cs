@@ -8,8 +8,8 @@
             Code = code;
             Name = name;
         }
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        public string Id { get; private set; }
+        public string Code { get; private set; }
+        public string Name { get; private set; }
     }
 }
