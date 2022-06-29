@@ -35,8 +35,10 @@ namespace Model.Tests
 
             userGmail.GmailAddress.Should().BeNullOrEmpty();
         }
-        [Fact()]
-        public void UserGmailTest_ForGmailPasswordContainsMoreThan_7_AndLessThan_101_Chars_UpdatesProperty()
+        [Theory()]
+        [InlineData("somethin")]
+        [InlineData("somethingsomethingsomethingsomethingsomethingsomethingsomething")]
+        public void UserGmailTest_ForGmailPasswordContainsMoreThan7AndLessThan101Chars_UpdatesProperty(string gmailPassword)
         {
             //arrange
 
@@ -44,14 +46,17 @@ namespace Model.Tests
 
             //act
 
-            userGmail.GmailPassword = "something";
+            userGmail.GmailPassword = gmailPassword;
 
             //assert
 
-            userGmail.GmailPassword.Should().NotBeEmpty();
+            userGmail.GmailPassword.Should().NotBeNullOrEmpty();
         }
-        [Fact()]
-        public void UserGmailTest_ForGmailPasswordContainsLessThan_7_Chars_DoesntUpdateProperty()
+        [Theory()]
+        [InlineData("")]
+        [InlineData("some")]
+        [InlineData("somethi")]
+        public void UserGmailTest_ForGmailPasswordContainsLessOrEqualThan7Chars_DoesntUpdateProperty(string gmailPassword)
         {
             //arrange
 
@@ -59,7 +64,7 @@ namespace Model.Tests
 
             //act
 
-            userGmail.GmailPassword = "some";
+            userGmail.GmailPassword = gmailPassword;
 
             //assert
 
