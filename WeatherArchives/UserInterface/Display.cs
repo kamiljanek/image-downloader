@@ -73,6 +73,22 @@ namespace UserInterface
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Display chosen menu with options
+        /// </summary>
+        /// <param name="flymetUrlElements">Whole list of URL Elements</param>
+        /// <returns>Return string with chosen elements by user</returns>
+        private string DisplayChoosenMenu(List<FlymetUrlElement> flymetUrlElements)
+        {
+            foreach (FlymetUrlElement val in flymetUrlElements)
+            {
+                Console.WriteLine($"{val.Id} - {val.Name}");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("You can input multiple numbers, for example: 1,2,3");
+            Console.Write("Choose numbers: ");
+            return Console.ReadLine();
+        }
         private void DisplayChoosenOptions()
         {
             try
@@ -96,23 +112,6 @@ namespace UserInterface
             {
                 Console.WriteLine("Cannot find file. Error : " + ex);
             }
-        }
-
-        /// <summary>
-        /// Display chosen menu with options
-        /// </summary>
-        /// <param name="flymetUrlElements">Whole list of URL Elements</param>
-        /// <returns>Return string with chosen elements by user</returns>
-        public string DisplayChoosenMenu(List<FlymetUrlElement> flymetUrlElements)
-        {
-            foreach (FlymetUrlElement val in flymetUrlElements)
-            {
-                Console.WriteLine($"{val.Id} - {val.Name}");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("You can input multiple numbers, for example: 1,2,3");
-            Console.Write("Choose numbers: ");
-            return Console.ReadLine();
         }
         private IUserGmail SetUserGmailData()
         {
