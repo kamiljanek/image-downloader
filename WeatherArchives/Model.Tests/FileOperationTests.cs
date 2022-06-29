@@ -1,3 +1,4 @@
+using Model;
 using Xunit;
 
 namespace Model.Tests
@@ -15,5 +16,20 @@ namespace Model.Tests
             //assert
             Assert.Equal("test message", message);
         }
+
+        //[Fact()]
+        //public void FileGeneratorTest()
+        //{
+        //    //arrange
+
+        //    var fileOperation = new FileOperation();
+            
+        //    //act
+
+
+            
+        //    //assert
+        //    Assert.True(false, "This test needs an implementation");
+        //}
     }
 }
