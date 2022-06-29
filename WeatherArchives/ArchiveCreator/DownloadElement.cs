@@ -18,6 +18,5 @@ namespace ArchiveCreator
         {
             _elements.Add(product.GenerateUrl(), product.GenerateFileName());
         }
-        
     }
 }
