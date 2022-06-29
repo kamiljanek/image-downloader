@@ -36,27 +36,5 @@ namespace Flymet
             }
             return selectedForecastElements;
         }
-        //public List<IGenerate> CreateWeatherForecasts(Func<string, List<ForecastUrlElement>> fileReader)
-        //{
-        //    var regionElement = fileReader(ConstantValue.regionFilePath);
-        //    var productElement = fileReader(ConstantValue.productFilePath);
-        //    var timeElement = fileReader(ConstantValue.timeFilePath);
-
-        //    var selectedForecastElements = new List<IGenerate>();
-
-        //    foreach (var RegionInput in regionElement)
-        //    {
-        //        foreach (var ProductInput in productElement)
-        //        {
-        //            foreach (var TimeInput in timeElement)
-        //            {
-        //                var forecastEntity = new WeatherForecast(RegionInput, ProductInput, TimeInput);
-        //                selectedForecastElements.Add(forecastEntity);
-        //            }
-        //        }
-        //    }
-        //    return selectedForecastElements;
-        //}
-
     }
 }
