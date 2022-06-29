@@ -29,9 +29,7 @@ namespace ArchiveCreator.Tests
         {
             //arrange
             var result = new DownloadElement();
-            var synoptic = new SynopticForecastFactory();
-            var fileOperation = new FileOperation();
-            var flymetForecastFactory = new FlymetForecastFactory(fileOperation);
+            var flymetForecastFactory = new FlymetForecastFactory(new FileOperation());
 
             //act
             result.AddElement(flymetForecastFactory.CreateWeatherForecasts());
