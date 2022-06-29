@@ -5,7 +5,7 @@ namespace ArchiveCreator
 {
     public class DownloadElement
     {
-        private Dictionary<string, string> _elements = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _elements = new Dictionary<string, string>();
         public Dictionary<string, string> Elements => _elements;
         public void AddElement(List<IGenerate> products)
         {
