@@ -1,11 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace Model
 {
     public class FileOperation : IFileOperation
     {
+        private readonly IFileSystem _fileSystem;
+        public FileOperation(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
         /// <summary>
         /// Create *.json file with settings that user choose
         /// </summary>
@@ -14,7 +20,7 @@ namespace Model
         public void FileGenerator(string jsonFilePath, object selectedItems)
         {
             var itemSerialized = JsonConvert.SerializeObject(selectedItems);
-            File.WriteAllText(jsonFilePath, itemSerialized);
+            _fileSystem.File.WriteAllText(jsonFilePath, itemSerialized);
         }
         /// <summary>
         /// Create item from existing *.json file
@@ -24,7 +30,7 @@ namespace Model
         /// <returns></returns>
         public T FileReader<T>(string filePath)
         {
-            var itemSerialized = File.ReadAllText(filePath);
+            var itemSerialized = _fileSystem.File.ReadAllText(filePath);
             T item = JsonConvert.DeserializeObject<T>(itemSerialized);
 
             return item;

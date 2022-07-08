@@ -1,4 +1,5 @@
-﻿using Flymet;
+﻿using System.IO.Abstractions;
+using Flymet;
 using Model;
 using Microsoft.Extensions.DependencyInjection;
 using SynopticMap;
@@ -14,7 +15,7 @@ namespace ArchiveCreator
             ConfigureServices(services);
             ServiceProvider = services.BuildServiceProvider();
 
-            var weatherForecastFactory = ServiceProvider.GetService<FlymetForecastFactory>();
+            var weatherForecastFactory = ServiceProvider.GetService<IFlymetForecastFactory>();
             var synopticForecast = ServiceProvider.GetService<SynopticForecastFactory>();
             var image = ServiceProvider.GetService<DownloadElement>();
             var emailSender = ServiceProvider.GetService<EmailSender>();
@@ -32,11 +33,12 @@ namespace ArchiveCreator
         private static void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddSingleton<FlymetForecastFactory>()
+                .AddSingleton<IFlymetForecastFactory, FlymetForecastFactory>()
                 .AddSingleton<SynopticForecastFactory>()
                 .AddSingleton<DownloadElement>()
                 .AddSingleton<EmailSender>()
-                .AddSingleton<IFileOperation, FileOperation>();
+                .AddSingleton<IFileOperation, FileOperation>()
+                .AddSingleton<IFileSystem, FileSystem>();
         }
     }
 }

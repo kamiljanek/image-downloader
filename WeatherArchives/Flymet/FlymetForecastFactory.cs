@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Flymet
 {
-    public class FlymetForecastFactory
+    public class FlymetForecastFactory : IFlymetForecastFactory
     {
         private readonly IFileOperation _fileOperation;
 
@@ -14,7 +14,7 @@ namespace Flymet
         {
             _fileOperation = fileOperation;
         }
-    
+
         public List<IGenerate> CreateWeatherForecasts()
         {
             var regionElement = _fileOperation.FileReader<List<FlymetUrlElement>>(FlymetConstValue.RegionFilePath);
