@@ -1,5 +1,7 @@
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using FluentAssertions;
-using Flymet;
+using Flymet.Entities;
 using Model;
 using SynopticMap;
 using Xunit;
@@ -14,28 +16,30 @@ namespace ArchiveCreator.Tests
             //arrange
             var result = new DownloadElement();
             var synoptic = new SynopticForecastFactory();
-            var dict = new Dictionary<string, string>()
-            {
-                { @"https://www.chmi.cz/files/portal/docs/meteo/om/evropa/preba/preba.gif", @"synoptic_map.gif" }
-            };
+
             //act
             result.AddElement(synoptic);
 
             //assert
-            result.Elements.Should().BeEquivalentTo(dict);
+            result.Elements.Should().NotBeEmpty();
         }
         [Fact()]
-        public void AddElementTest_ForAddFlymetFiles_UpdatesProperty()
+        public void AddElementTest_ForAddFlymetForecasts_UpdatesProperty()
         {
             //arrange
-            var result = new DownloadElement();
-            var flymetForecastFactory = new FlymetForecastFactory(new FileOperation());
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var mock = fixture.Create<DownloadElement>();
+
+            fixture.Register<IGenerate>(() => fixture.Create<FlymetForecast>());
+
+            var flymetForecasts = fixture.CreateMany<IGenerate>(3).ToList();
 
             //act
-            result.AddElement(flymetForecastFactory.CreateWeatherForecasts());
+            mock.AddElement(flymetForecasts);
 
             //assert
-            result.Elements.Should().NotBeEmpty();
+            mock.Elements.Should().NotBeEmpty();
+
         }
     }
 }
