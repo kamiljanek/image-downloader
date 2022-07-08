@@ -48,7 +48,7 @@ namespace UserInterface
         /// <param name="forecastElements">List of all URL Elements to display in specific case</param>
         public void CaseMenuOptions(string filePath, List<FlymetUrlElement> forecastElements)
         {
-            Title();
+            //Title();
             var userInput = DisplayChoosenMenu(forecastElements);
             var selectedItems = SelectUrlElements(forecastElements, userInput);
             _fileOperation.FileGenerator(filePath, selectedItems);

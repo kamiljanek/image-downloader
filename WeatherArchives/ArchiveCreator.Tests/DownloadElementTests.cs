@@ -28,17 +28,17 @@ namespace ArchiveCreator.Tests
         {
             //arrange
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
-            var mock = fixture.Create<DownloadElement>();
+            var sut = fixture.Create<DownloadElement>();
 
             fixture.Register<IGenerate>(() => fixture.Create<FlymetForecast>());
 
             var flymetForecasts = fixture.CreateMany<IGenerate>(3).ToList();
 
             //act
-            mock.AddElement(flymetForecasts);
+            sut.AddElement(flymetForecasts);
 
             //assert
-            mock.Elements.Should().NotBeEmpty();
+            sut.Elements.Should().NotBeEmpty();
 
         }
     }
